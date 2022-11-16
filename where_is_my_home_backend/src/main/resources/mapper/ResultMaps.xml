@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.resultmaps">
+
+	<resultMap type="InterestingPlace" id="IPResultMap">
+		<id column="userid" property="userid"/>
+		<id column="dongname" property="dongName"/>
+		<result column="sidoname" property="sidoName"/>
+		<result column="gugunname" property="gugunName"/>
+		<result column="lat" property="lat"/>
+		<result column="lng" property="lng"/>
+	</resultMap>
+
+	<resultMap type="CommercialArea" id="CAResultMap">
+		<id column="name" property="name"/>
+		<result column="lat" property="lat"/>
+		<result column="lng" property="lng"/>
+	</resultMap>
+	
+	<resultMap type="Notice" id="NoticeResultMap">
+		<id column="id" property="id"/>
+		<result column="userid" property="userid"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+	</resultMap>
+	
+</mapper>
