@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="light" variant="light">
       <b-navbar-brand href="#">
-        <router-link :to="{ name: 'main' }">
+        <router-link :to="{ name: 'main' }" class="link">
           <div class="item col-md-2 text-info"><h1>구해줘홈즈</h1></div>
         </router-link>
       </b-navbar-brand>

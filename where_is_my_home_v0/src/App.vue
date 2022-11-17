@@ -23,6 +23,7 @@ export default {
     format("woff");
   font-weight: normal;
   font-style: normal;
+  text-decoration: none;
 }
 
 #app {
@@ -30,6 +31,7 @@ export default {
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
   text-align: center;
+  font-weight: bold;
   /* color: #2c3e50; */
 }
 
