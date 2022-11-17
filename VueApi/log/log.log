@@ -70,3 +70,18 @@
 [2m2022-11-17 16:00:27.348[0;39m [32m INFO[0;39m [35m18180[0;39m [2m---[0;39m [2m[nio-9999-exec-4][0;39m [36mc.s.vue.controller.HouseMapController   [0;39m [2m:[0;39m sido - 호출
 [2m2022-11-17 16:00:27.677[0;39m [32m INFO[0;39m [35m18180[0;39m [2m---[0;39m [2m[nio-9999-exec-5][0;39m [36mc.s.vue.controller.HouseMapController   [0;39m [2m:[0;39m sido - 호출
 [2m2022-11-17 16:00:39.302[0;39m [32m INFO[0;39m [35m18180[0;39m [2m---[0;39m [2m[nio-9999-exec-6][0;39m [36mc.s.vue.controller.HouseMapController   [0;39m [2m:[0;39m sido - 호출
+[2m2022-11-17 16:51:21.320[0;39m [32mDEBUG[0;39m [35m18180[0;39m [2m---[0;39m [2m[io-9999-exec-10][0;39m [36mc.ssafy.vue.controller.MemberController [0;39m [2m:[0;39m 로그인 accessToken 정보 : eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNjY4NjcxNDgxMzE3LCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Njg2NzE0OTEsInN1YiI6ImFjY2Vzcy10b2tlbiIsInVzZXJpZCI6InNzYWZ5In0.wicnOI0zxPbgY2ACLTBcJBlcZerW7n5LiJFUC4_0uo4
+[2m2022-11-17 16:51:21.320[0;39m [32mDEBUG[0;39m [35m18180[0;39m [2m---[0;39m [2m[io-9999-exec-10][0;39m [36mc.ssafy.vue.controller.MemberController [0;39m [2m:[0;39m 로그인 refreshToken 정보 : eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNjY4NjcxNDgxMzE3LCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Njg2NzE1MTEsInN1YiI6InJlZnJlc2gtdG9rZW4iLCJ1c2VyaWQiOiJzc2FmeSJ9.Al4ca2MY6IxCaQtgssPhv_VqmdGNGoaPccDJF4gYnlc
+[2m2022-11-17 16:51:21.326[0;39m [32m INFO[0;39m [35m18180[0;39m [2m---[0;39m [2m[nio-9999-exec-2][0;39m [36mc.ssafy.vue.controller.MemberController [0;39m [2m:[0;39m 사용 가능한 토큰!!!
+[2m2022-11-17 16:51:22.807[0;39m [32m INFO[0;39m [35m18180[0;39m [2m---[0;39m [2m[nio-9999-exec-3][0;39m [36mc.ssafy.vue.controller.MemberController [0;39m [2m:[0;39m 사용 가능한 토큰!!!
+[2m2022-11-17 18:04:14.579[0;39m [32m INFO[0;39m [35m18180[0;39m [2m---[0;39m [2m[(165)-127.0.0.1][0;39m [36minMXBeanRegistrar$SpringApplicationAdmin[0;39m [2m:[0;39m Application shutdown requested.
+[2m2022-11-17 18:04:14.670[0;39m [33m WARN[0;39m [35m18180[0;39m [2m---[0;39m [2m[(165)-127.0.0.1][0;39m [36mo.a.c.loader.WebappClassLoaderBase      [0;39m [2m:[0;39m The web application [vue] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)

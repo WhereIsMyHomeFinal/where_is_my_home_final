@@ -34,12 +34,16 @@
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
+      <b-carousel-slide
+        img-src="https://lab.ssafy.com/ekdub92/whereismyhome08_7/uploads/467e7a159ada2ec716ae6d68c203341c/main_03.png"
+      >
         <h1>Hello world!</h1>
       </b-carousel-slide>
 
       <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
+      <b-carousel-slide
+        img-src="https://lab.ssafy.com/ekdub92/whereismyhome08_7/uploads/467e7a159ada2ec716ae6d68c203341c/main_03.png"
+      ></b-carousel-slide>
 
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
@@ -49,7 +53,7 @@
             class="d-block img-fluid w-100"
             width="1024"
             height="480"
-            src="https://picsum.photos/1024/480/?image=55"
+            src="https://lab.ssafy.com/ekdub92/whereismyhome08_7/uploads/467e7a159ada2ec716ae6d68c203341c/main_03.png"
             alt="image slot"
           />
         </template>
