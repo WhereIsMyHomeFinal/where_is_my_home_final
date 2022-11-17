@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
+    <b-navbar toggleable="lg" type="light" variant="light">
       <b-navbar-brand href="#">
         <router-link :to="{ name: 'main' }">
           <div class="item col-md-2 text-info"><h1>구해줘홈즈</h1></div>
@@ -109,5 +109,6 @@ export default {
 
 .link {
   text-decoration: none;
+  color: #17a2b8;
 }
 </style>
