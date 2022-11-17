@@ -1,31 +1,74 @@
+<script setup>
+// import vueMkHeader from "@/assets/main_02.png";
+</script>
 <template>
-  <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-steelblue"><b-icon icon="house"></b-icon> SSAFY</h3>
-    <b-row>
-      <b-col></b-col>
-      <b-col cols="10">
-        <b-jumbotron bg-variant="muted" text-variant="dark" border-variant="dark">
-          <template #header>SSAFY Home</template>
+  <!-- <Header>
+    <div class="page-header min-vh-100" :style="`background-image: url(${vueMkHeader})`" loading="lazy">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto position-relative">
+            <h1 class="text-white pt-3 mt-n5 me-2" :style="{ display: 'inline-block ' }"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Header> -->
+  <div>
+    <b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="4000"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height="480"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+      <!-- Text slides with image -->
+      <b-carousel-slide
+        caption="안녕하세요! 구해줘 홈즈 입니다."
+        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+        img-src="https://lab.ssafy.com/ekdub92/whereismyhome08_7/uploads/467e7a159ada2ec716ae6d68c203341c/main_03.png"
+      ></b-carousel-slide>
 
-          <template #lead>
-            슬기로운 싸피 생활 (:8기편👍)<br />
-            1학기동안 모두 고생 & 수고많으셨어요😍~~<br />
-            2학기 가서도 행복한 하루 ⭐️ 하루 되길 바랄께요.<br />
-            7전 8~~~~~~~~~~~~~~~~~~~~~~~끼를 보여주세요.🌈<br />
-            그리고 각자 생각하는 곳에 취업!!! 꼭!꼭!꼭! 하세용.🐹
-          </template>
+      <!-- Slides with custom text -->
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
+        <h1>Hello world!</h1>
+      </b-carousel-slide>
 
-          <hr class="my-4" />
+      <!-- Slides with image only -->
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
 
-          <p>Vue + Bootstrap활용.</p>
-          <p>Bootstrap-vue는 버전 <b>4.6.1</b>을 권장합니다.</p>
-          <p><b>BoardList.vue</b>를 바꿔가면서 테스트하세요.</p>
-          <p>Bootstrap의 <b>table</b> 사용법을 익히게됩니다.</p>
-        </b-jumbotron>
-      </b-col>
-      <b-col></b-col>
-    </b-row>
-  </b-container>
+      <!-- Slides with img slot -->
+      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+      <b-carousel-slide>
+        <template #img>
+          <img
+            class="d-block img-fluid w-100"
+            width="1024"
+            height="480"
+            src="https://picsum.photos/1024/480/?image=55"
+            alt="image slot"
+          />
+        </template>
+      </b-carousel-slide>
+
+      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt a tincidunt eget,
+          convallis vel est. Ut pellentesque ut lacus vel interdum.
+        </p>
+      </b-carousel-slide>
+    </b-carousel>
+
+    <p class="mt-4">
+      Slide #: {{ slide }}<br />
+      Sliding: {{ sliding }}
+    </p>
+  </div>
 </template>
 
 <script>
@@ -34,12 +77,26 @@ export default {
   props: {
     msg: String,
   },
+  data() {
+    return {
+      slide: 0,
+      sliding: null,
+    };
+  },
+  methods: {
+    onSlideStart() {
+      this.sliding = true;
+    },
+    onSlideEnd() {
+      this.sliding = false;
+    },
+  },
 };
 </script>
 
 <style scoped>
-.underline-steelblue {
+/* .underline-steelblue {
   display: inline-block;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(72, 190, 233, 0.3) 30%);
-}
+} */
 </style>

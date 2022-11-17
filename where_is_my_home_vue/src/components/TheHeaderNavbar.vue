@@ -76,13 +76,14 @@ export default {
 }
 
 @font-face {
-  font-family: 'LeferiPoint-WhiteObliqueA';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+  font-family: "LeferiPoint-WhiteObliqueA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 #app {
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: "LeferiPoint-WhiteObliqueA";
 }
 </style>
