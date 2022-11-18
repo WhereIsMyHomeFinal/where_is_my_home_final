@@ -102,7 +102,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #logo {
   width: 120px;
 }
@@ -110,5 +110,10 @@ export default {
 .link {
   text-decoration: none;
   color: #17a2b8;
+}
+
+.link:hover {
+  text-decoration: none;
+  color: #6E8A8E;
 }
 </style>
