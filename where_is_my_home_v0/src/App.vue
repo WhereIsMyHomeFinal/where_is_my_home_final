@@ -36,10 +36,12 @@ export default {
 }
 
 a.router-link-exact-active {
-  color: #89bfef;
+  color: #17a2b8;
+  /* color: #89bfef; */
 }
 
 a.router-link-exact-active:hover {
   text-decoration: none;
+  color: #6E8A8E;
 }
 </style>
