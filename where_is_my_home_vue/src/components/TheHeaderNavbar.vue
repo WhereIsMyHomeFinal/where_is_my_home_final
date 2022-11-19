@@ -24,7 +24,7 @@
               <!-- <b-icon icon="journal" animation="fade" font-scale="2" variant="info"></b-icon> -->
               게시판
             </router-link>
-            <router-link :to="{ name: 'aptlist' }" class="m-2 link">
+            <router-link :to="{ name: 'house' }" class="m-2 link">
               <!-- <b-icon icon="house-fill" animation="fade" font-scale="2" variant="info"></b-icon> -->
               아파트정보
             </router-link>

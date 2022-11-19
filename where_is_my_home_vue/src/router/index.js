@@ -3,16 +3,16 @@ import VueRouter from "vue-router";
 import AppMain from "@/views/AppMain";
 import AppInstagram from "@/views/AppInstagram";
 import AppHouse from "@/views/AppHouse";
-import AppAptlist from "@/views/AppAptlist";
+// import AppAptlist from "@/views/AppAptlist";
 
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/aptlist",
-    name: "aptlist",
-    component: AppAptlist,
-  },
+  // {
+  //   path: "/aptlist",
+  //   name: "aptlist",
+  //   component: AppAptlist,
+  // },
   {
     path: "/",
     name: "main",
