@@ -1,1 +1,4 @@
 [2m2022-11-19 09:38:55.146[0;39m [32m INFO[0;39m [35m768[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 9999 (http)
+[2m2022-11-19 09:38:55.272[0;39m [32m INFO[0;39m [35m768[0;39m [2m---[0;39m [2m[           main][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 1216 ms
+[2m2022-11-19 09:38:56.268[0;39m [32m INFO[0;39m [35m768[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 9999 (http) with context path '/vue'
+[2m2022-11-19 18:52:39.775[0;39m [32m INFO[0;39m [35m768[0;39m [2m---[0;39m [2m[n(40)-127.0.0.1][0;39m [36minMXBeanRegistrar$SpringApplicationAdmin[0;39m [2m:[0;39m Application shutdown requested.
