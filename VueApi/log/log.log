@@ -1,3 +1,4 @@
+
 [2m2022-11-19 00:19:14.838[0;39m [31mERROR[0;39m [35m26108[0;39m [2m---[0;39m [2m[nio-9999-exec-7][0;39m [36mc.s.vue.model.service.JwtServiceImpl    [0;39m [2m:[0;39m JWT expired at 2022-11-18T23:23:17Z. Current time: 2022-11-19T00:19:14Z, a difference of 3357830 milliseconds.  Allowed clock skew: 0 milliseconds.
 [2m2022-11-19 00:19:14.849[0;39m [31mERROR[0;39m [35m26108[0;39m [2m---[0;39m [2m[nio-9999-exec-7][0;39m [36mc.ssafy.vue.controller.MemberController [0;39m [2m:[0;39m 사용 불가능 토큰!!!
 [2m2022-11-19 00:19:14.874[0;39m [32mDEBUG[0;39m [35m26108[0;39m [2m---[0;39m [2m[nio-9999-exec-9][0;39m [36mc.ssafy.vue.controller.MemberController [0;39m [2m:[0;39m token : eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNjY4NzgxMzM3OTU5LCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Njk5OTA5MzcsInN1YiI6InJlZnJlc2gtdG9rZW4iLCJ1c2VyaWQiOiJzc2FmeSJ9.RevRLM7QIG9eVIwCGG4b1j4a47f6w_VIQcP87d1EvTE, memberDto : com.ssafy.vue.model.MemberDto@f5c6631

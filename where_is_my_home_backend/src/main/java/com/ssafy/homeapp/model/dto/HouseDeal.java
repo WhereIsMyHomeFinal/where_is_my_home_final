@@ -12,20 +12,20 @@ public class HouseDeal {
 	private String lat;
 	private String lng;
 	
-	public HouseDeal(int no, int aptCode, String aptName, String dealAmount, String area, String dongName, String floor, int buildYear,
-			String lat, String lng) {
-		super();
-		this.no = no;
-		this.aptCode = aptCode;
-		this.aptName = aptName;
-		this.dealAmount = dealAmount;
-		this.area = area;
-		this.dongName = dongName;
-		this.floor = floor;
-		this.buildYear = buildYear;
-		this.lat = lat;
-		this.lng = lng;
-	}
+//	public HouseDeal(int no, int aptCode, String aptName, String dealAmount, String area, String dongName, String floor, int buildYear,
+//			String lat, String lng) {
+//		super();
+//		this.no = no;
+//		this.aptCode = aptCode;
+//		this.aptName = aptName;
+//		this.dealAmount = dealAmount;
+//		this.area = area;
+//		this.dongName = dongName;
+//		this.floor = floor;
+//		this.buildYear = buildYear;
+//		this.lat = lat;
+//		this.lng = lng;
+//	}
 	
 	public int getNo() {
 		return no;

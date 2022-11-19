@@ -20,7 +20,7 @@
 			<if test="aptName != '' and aptName != null">aptName like concat('%', #{aptName}, '%')</if>
 			<if test="dongName != '' and dongName != null">and dongName like #{dongName}</if>	<!-- 첫번째 if가 실행안되면 and 자동으로 날려줌!! -->
 		</where>
-		order by dealAmount desc limit 9
+		order by dealAmount desc <!--  limit 9 -->
 	</select>
 	
 	<!-- 레코드 하나를 해당 타입에 어떻게 매핑시켜 담아야하는지의 매핑전략 -->
@@ -36,4 +36,25 @@
 		<result column="lat" property="lat"/>
 		<result column="lng" property="lng"/>
 	</resultMap>
+	
+	<select id="getSido" resultType="SidoGugunCodeDto">
+		select left(sidoCode,2) sidoCode, sidoName
+		from sidocode
+		order by sidoCode
+	</select>
+	
+	<select id="getGugunInSido" parameterType="string" resultType="SidoGugunCodeDto">
+		select left(gugunCode,5) gugunCode, gugunName
+		from guguncode
+		where left(gugunCode,2) = #{sido}
+		order by gugunCode
+	</select>
+	
+	<select id="getDongInGugun" parameterType="string" resultType="HouseDeal">
+		select distinct dongName
+		from dongcode
+		where left(dongCode, 5) = #{gugun}
+		order by dongName
+	</select>
+	
 </mapper>

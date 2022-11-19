@@ -22,6 +22,18 @@
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 
+/*
+  namespaced: true를 사용했기 때문에 선언해줍니다.
+  index.js 에서 modules 객체의 '키' 이름입니다.
+
+  modules: {
+    키: 값
+    memberStore: memberStore,
+    houseStore: houseStore
+  }  
+*/
+const houseStore = "houseStore";
+
 export default {
   name: "HouseSearchBar",
   data() {
@@ -31,7 +43,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["sidos", "guguns", "houses"]),
+    ...mapState(houseStore, ["sidos", "guguns", "houses"]),
     // sidos() {
     //   return this.$store.state.sidos;
     // },
@@ -40,13 +52,12 @@ export default {
     // this.$store.dispatch("getSido");
     // this.sidoList();
     this.CLEAR_SIDO_LIST();
-    this.CLEAR_GUGUN_LIST();
     this.CLEAR_APT_LIST();
     this.getSido();
   },
   methods: {
-    ...mapActions(["getSido", "getGugun", "getHouseList"]),
-    ...mapMutations(["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_APT_LIST"]),
+    ...mapActions(houseStore, ["getSido", "getGugun", "getHouseList"]),
+    ...mapMutations(houseStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_APT_LIST"]),
     // sidoList() {
     //   this.getSido();
     // },
