@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "MemberDto : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 public class MemberDto {
 
+	@ApiModelProperty(value = "회원 인덱스")
+	private String user_idx;
 	@ApiModelProperty(value = "회원 아이디")
 	private String userid;
 	@ApiModelProperty(value = "회원 이름")
@@ -16,6 +18,14 @@ public class MemberDto {
 	private String email;
 	@ApiModelProperty(value = "회원 가입일")
 	private String joindate;
+	
+	public String getUserIdx() {
+		return user_idx;
+	}
+	
+	public void setUserIdx(String userIdx) {
+		this.user_idx = userIdx;
+	}
 
 	public String getUserid() {
 		return userid;

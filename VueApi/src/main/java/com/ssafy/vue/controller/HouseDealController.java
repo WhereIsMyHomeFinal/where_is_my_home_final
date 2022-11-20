@@ -1,5 +1,6 @@
 package com.ssafy.vue.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class HouseDealController {
 		if(aptName != null) conditions.put("aptName", aptName);
 		if(dongName != null) conditions.put("dongName", dongName);
 		List<HouseDeal> houseDeals = houseService.getHouseDeals(conditions);
+		System.out.println(houseDeals);
 		if(houseDeals != null) {
 			if(houseDeals.size() == 0) {
 				return ResponseEntity.noContent().build();
@@ -45,6 +47,7 @@ public class HouseDealController {
 	@GetMapping("/{no}")
 	private ResponseEntity<HouseDeal> getHouse(@PathVariable int no) {
 		HouseDeal houseDeal = houseService.getHouseDeal(no);
+		System.out.println(houseDeal);
 		if(houseDeal != null) {
 			return ResponseEntity.ok(houseDeal);
 		}else {
