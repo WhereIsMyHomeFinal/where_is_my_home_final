@@ -30,12 +30,7 @@ public class HouseDealController {
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		if(aptName != null) conditions.put("aptName", aptName);
 		if(dongName != null) conditions.put("dongName", dongName);
-<<<<<<< HEAD
 		List<HouseDealDto> houseDeals = houseService.getHouseDeals(conditions);
-=======
-		List<HouseDeal> houseDeals = houseService.getHouseDeals(conditions);
-		System.out.println(houseDeals);
->>>>>>> 6582af8e3215b4dca6e2e82b31a3a5e88637bdbf
 		if(houseDeals != null) {
 			if(houseDeals.size() == 0) {
 				return ResponseEntity.noContent().build();
@@ -49,14 +44,8 @@ public class HouseDealController {
 	}
 
 	@GetMapping("/{no}")
-<<<<<<< HEAD
 	private ResponseEntity<HouseDealDto> getHouse(@PathVariable int no) {
 		HouseDealDto houseDeal = houseService.getHouseDeal(no);
-=======
-	private ResponseEntity<HouseDeal> getHouse(@PathVariable int no) {
-		HouseDeal houseDeal = houseService.getHouseDeal(no);
-		System.out.println(houseDeal);
->>>>>>> 6582af8e3215b4dca6e2e82b31a3a5e88637bdbf
 		if(houseDeal != null) {
 			return ResponseEntity.ok(houseDeal);
 		}else {
