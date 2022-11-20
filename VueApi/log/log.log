@@ -68,3 +68,4 @@ Caused by: java.net.SocketException: Bad address: listen
 [2m2022-11-20 15:36:02.926[0;39m [32m INFO[0;39m [35m29956[0;39m [2m---[0;39m [2m[nio-9999-exec-2][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
 [2m2022-11-20 15:36:02.939[0;39m [32m INFO[0;39m [35m29956[0;39m [2m---[0;39m [2m[nio-9999-exec-2][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 10 ms
 [2m2022-11-20 15:36:03.022[0;39m [33m WARN[0;39m [35m29956[0;39m [2m---[0;39m [2m[nio-9999-exec-2][0;39m [36mo.s.web.servlet.PageNotFound            [0;39m [2m:[0;39m No mapping for GET /vue/house-deals/sido
+[2m2022-11-20 16:08:02.081[0;39m [32m INFO[0;39m [35m29956[0;39m [2m---[0;39m [2m[n(89)-127.0.0.1][0;39m [36minMXBeanRegistrar$SpringApplicationAdmin[0;39m [2m:[0;39m Application shutdown requested.
