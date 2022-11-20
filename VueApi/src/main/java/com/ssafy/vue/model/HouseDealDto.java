@@ -1,6 +1,6 @@
 package com.ssafy.vue.model;
 
-public class HouseDeal {
+public class HouseDealDto {
 	private int no;
 	private int aptCode;
 	private String aptName;

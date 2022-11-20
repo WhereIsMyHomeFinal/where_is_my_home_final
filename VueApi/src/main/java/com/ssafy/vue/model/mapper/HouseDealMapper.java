@@ -5,20 +5,20 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssafy.vue.model.HouseDeal;
+import com.ssafy.vue.model.HouseDealDto;
 import com.ssafy.vue.model.SidoGugunCodeDto;
 
 @Mapper
-public interface HouseDealDAO {
+public interface HouseDealMapper {
 
-	List<HouseDeal> selectHouseDeals(Map<String, Object> conditions);
+	List<HouseDealDto> selectHouseDeals(Map<String, Object> conditions);
 
-	HouseDeal selectHouseDeal(int no);
+	HouseDealDto selectHouseDeal(int no);
 	
 	List<SidoGugunCodeDto> getSido();
 	
 	List<SidoGugunCodeDto> getGugunInSido(String sido);
 	
-	List<HouseDeal> getDongInGugun(String gugun);
+	List<HouseDealDto> getDongInGugun(String gugun);
 	
 }
