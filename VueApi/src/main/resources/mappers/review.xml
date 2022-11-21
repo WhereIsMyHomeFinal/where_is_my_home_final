@@ -7,6 +7,7 @@
 				r.recommend_score as recommendScore, r.surround_score as surroundScore, r.traffic_score as trafficScore,
 				r.living_score as livingScore, comment, r.regist_date as registDate
 		from review r join ssafy_member s
+		on r.user_idx = s.user_idx
 		where deal_idx = #{dealIdx}
 	</select>
 
