@@ -490,9 +490,9 @@ export default {
 }
 #searchBox {
   position: absolute;
-  top: 100px;
+  top: 160px;
   /* bottom : 10px; */
-  left: 20px;
+  left: 10px;
   width: 400px;
   /* height: 400px; */
   padding: 10px;
@@ -504,9 +504,9 @@ export default {
 }
 #showList {
   position: absolute;
-  top: 235px;
+  top: 300px;
   bottom: 20px;
-  left: 20px;
+  left: 10px;
   /* right: 1505px; */
   width: 400px;
   padding: 10px;
