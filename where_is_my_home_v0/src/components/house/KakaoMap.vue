@@ -45,6 +45,7 @@
           <h4 class="m-0">{{ aptlist[curIndex].aptName }}</h4>
           <!-- <HeartBtn v-if="isAuth&&level==2" class="px-1" :enabled="aptlist[curIndex].bookmark" @changeHeartBtn="onBookmarkHouse" /> -->
         </div>
+        <div id="roadview" style="width:100%;height:300px;"></div>
         <!-- contents -->
         <div class="px-3">
           <div class="border-bottom d-flex py-2">
@@ -209,6 +210,8 @@ import http from "@/api/http.js";
 import DongSearch from "@/components/house/tabbox/DongSearch.vue";
 import KeywordSearch from "@/components/house/tabbox/KeywordSearch.vue";
 import StarRating from "vue-star-rating";
+import { nextTick } from 'vue'
+
 
 export default {
   name: "KakaoMap",
@@ -296,9 +299,13 @@ export default {
         });
       });
     },
-    showHouseDetail(index) {
+    async showHouseDetail(index) {
       console.log("showhousedetail");
+      if (!this.listVisible) {
+        this.listVisible = true;
+      }
       this.curIndex = index;
+      await nextTick();
       const no = this.aptlist[index].no;
       // const aptCode = this.aptlist[index].aptCode;
       http.get(`/house-deals/${no}`).then(({ data }) => {
@@ -309,10 +316,18 @@ export default {
         console.log(data);
         this.reviewList = data;
       });
-      // this.getHouseDeal(no);
-      // this.getOngoingList(no);
-      // this.getHouseReview(no);
-      if (!this.listVisible) this.listVisible = true;
+      var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
+      console.log(roadviewContainer);
+      var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
+      var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+      var position = new kakao.maps.LatLng(this.aptlist[index].lat, this.aptlist[index].lng);
+      // var position = new kakao.maps.LatLng(33.450802, 126.570667);
+
+
+      // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
+      roadviewClient.getNearestPanoId(position, 50, function(panoId) {
+        roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+      });
     },
     removeMarker() {
       for (var i = 0; i < this.markers.length; i++) {
@@ -357,11 +372,11 @@ export default {
         var marker = this.addMarker(new kakao.maps.LatLng(places[i].y, places[i].x), order);
         // 마커와 검색결과 항목을 클릭 했을 때
         // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
-        (function (marker, place) {
+        (function (marker, place, prethis) {
           kakao.maps.event.addListener(marker, "click", function () {
-            this.displayPlaceInfo(place);
+            prethis.displayPlaceInfo(place);
           });
-        })(marker, places[i]);
+        })(marker, places[i], this);
       }
     },
     addMarker(position, order) {
@@ -415,7 +430,7 @@ export default {
 
       this.contentNode.innerHTML = content;
       this.placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
-      this.placeOverlay.setMap(map);
+      this.placeOverlay.setMap(this.map);
     },
     addCategoryClickEvent() {
       var category = document.getElementById("category"),
@@ -439,22 +454,6 @@ export default {
         });
       }
     },
-    // onClickCategory() {
-    //   var id = event.target.id,
-    //       className = event.target.className;
-    //   console.log(event);
-
-    //   this.placeOverlay.setMap(null);
-    //   if (className === 'on') {
-    //     this.currCategory = '';
-    //     this.changeCategoryClass();
-    //     this.removeMarker();
-    //   } else {
-    //     this.currCategory = id;
-    //     this.changeCategoryClass(event.target);
-    //     this.searchPlaces();
-    //   }
-    // },
     changeCategoryClass(el) {
       var category = document.getElementById("category"),
         children = category.children,
@@ -593,6 +592,10 @@ export default {
 #category li.on .category_bg {
   background-position-x: -46px;
 }
+
+</style>
+<style>
+
 .placeinfo_wrap {
   position: absolute;
   bottom: 28px;
