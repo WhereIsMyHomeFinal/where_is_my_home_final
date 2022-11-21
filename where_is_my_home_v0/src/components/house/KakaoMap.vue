@@ -45,7 +45,7 @@
           <h4 class="m-0">{{ aptlist[curIndex].aptName }}</h4>
           <HeartBtn class="px-1" :enabled="aptlist[curIndex].bookmark" @changeHeartBtn="onBookmarkHouse" />
         </div>
-        <div id="roadview" style="width:100%;height:300px;"></div>
+        <div id="roadview" style="width: 100%; height: 300px"></div>
         <!-- contents -->
         <div class="px-3">
           <div class="border-bottom d-flex py-2">
@@ -89,9 +89,7 @@
             </div>
             <div class="d-flex flex-column">
               <h5 class="m-0">{{ review.userName }}</h5>
-              <div class="text-secondary" style="font-size: 0.9rem">
-                {{ review.registDate }} 가입
-              </div>
+              <div class="text-secondary" style="font-size: 0.9rem">{{ review.registDate }} 가입</div>
             </div>
           </div>
           <div class="px-3">
@@ -105,9 +103,7 @@
                   :show-rating="false"
                   :rounded-corners="true"
                   :star-size="20"
-                  :star-points="[
-                    23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17,
-                  ]"
+                  :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
                 ></StarRating>
               </div>
             </div>
@@ -120,9 +116,7 @@
                   :show-rating="false"
                   :rounded-corners="true"
                   :star-size="20"
-                  :star-points="[
-                    23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17,
-                  ]"
+                  :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
                 ></StarRating>
               </div>
             </div>
@@ -135,9 +129,7 @@
                   :show-rating="false"
                   :rounded-corners="true"
                   :star-size="20"
-                  :star-points="[
-                    23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17,
-                  ]"
+                  :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
                 ></StarRating>
               </div>
             </div>
@@ -150,9 +142,7 @@
                   :show-rating="false"
                   :rounded-corners="true"
                   :star-size="20"
-                  :star-points="[
-                    23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17,
-                  ]"
+                  :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
                 ></StarRating>
               </div>
             </div>
@@ -306,16 +296,15 @@ export default {
         console.log(data);
         this.reviewList = data;
       });
-      var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
+      var roadviewContainer = document.getElementById("roadview"); //로드뷰를 표시할 div
       console.log(roadviewContainer);
       var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
       var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
       var position = new kakao.maps.LatLng(this.aptlist[index].lat, this.aptlist[index].lng);
       // var position = new kakao.maps.LatLng(33.450802, 126.570667);
 
-
       // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
-      roadviewClient.getNearestPanoId(position, 50, function(panoId) {
+      roadviewClient.getNearestPanoId(position, 50, function (panoId) {
         roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
       });
     },
@@ -342,7 +331,7 @@ export default {
       // this.removeMarker();
       this.ps.categorySearch(this.currCategory, this.placesSearchCB, { useMapBounds: true });
     },
-    placesSearchCB(data, status, pagination) {
+    placesSearchCB(data, status) {
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
         this.displayPlaces(data);
@@ -415,8 +404,7 @@ export default {
         content += '    <span title="' + place.address_name + '">' + place.address_name + "</span>";
       }
 
-      content +=
-        '    <span class="tel">' + place.phone + "</span>" + "</div>" + '<div class="after"></div>';
+      content += '    <span class="tel">' + place.phone + "</span>" + "</div>" + '<div class="after"></div>';
 
       this.contentNode.innerHTML = content;
       this.placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
@@ -428,7 +416,8 @@ export default {
       let compThis = this;
       for (var i = 0; i < children.length; i++) {
         children[i].addEventListener("click", function () {
-          var id = this.id,className = this.className;
+          var id = this.id,
+            className = this.className;
           console.log(this);
 
           compThis.placeOverlay.setMap(null);
@@ -558,8 +547,7 @@ export default {
   height: 28px;
 }
 #category li .category_bg {
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
-    no-repeat;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;
 }
 #category li .bank {
   background-position: -10px 0;
@@ -582,10 +570,8 @@ export default {
 #category li.on .category_bg {
   background-position-x: -46px;
 }
-
 </style>
 <style>
-
 .placeinfo_wrap {
   position: absolute;
   bottom: 28px;
@@ -640,8 +626,8 @@ export default {
   padding: 10px;
   color: #fff;
   background: #17a2b8;
-  background: #17a2b8 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
-    no-repeat right 14px center;
+  background: #17a2b8 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px
+    center;
 }
 .placeinfo .tel {
   color: #0f7833;
