@@ -19,10 +19,10 @@ public class LikeDealController {
 	@Autowired
 	private LikeDealService likeDealService;
 	
-	@GetMapping("/{user_idx}")
-	private ResponseEntity<List<LikeDealDto>> getLikeDealsByUserIdx(@PathVariable int user_idx) {
+	@GetMapping("/{userIdx}")
+	private ResponseEntity<List<LikeDealDto>> getLikeDealsByUserIdx(@PathVariable int userIdx) {
 		
-		List<LikeDealDto> likeDeals = likeDealService.getLikeDealsByUserIdx(user_idx);
+		List<LikeDealDto> likeDeals = likeDealService.getLikeDealsByUserIdx(userIdx);
 		System.out.println(likeDeals);
 		if(likeDeals != null) {
 			if(likeDeals.size() == 0) {

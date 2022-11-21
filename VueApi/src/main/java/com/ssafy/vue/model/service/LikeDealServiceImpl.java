@@ -16,8 +16,8 @@ public class LikeDealServiceImpl implements LikeDealService {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<LikeDealDto> getLikeDealsByUserIdx(int user_idx) {
-		return sqlSession.getMapper(LikeDealMapper.class).getLikeDealsByUserIdx(user_idx);
+	public List<LikeDealDto> getLikeDealsByUserIdx(int userIdx) {
+		return sqlSession.getMapper(LikeDealMapper.class).getLikeDealsByUserIdx(userIdx);
 	}
 
 }

@@ -8,9 +8,7 @@
 <script>
 export default {
   name: "AppUser",
-  components:{
-    
-  }
+  components: {},
 };
 </script>
 
@@ -19,4 +17,8 @@ export default {
   display: inline-block;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(72, 190, 233, 0.3) 30%);
 } */
+h3 {
+  text-align: start;
+  margin-left: 10px;
+}
 </style>

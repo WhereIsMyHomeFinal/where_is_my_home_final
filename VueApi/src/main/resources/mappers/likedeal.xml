@@ -5,7 +5,7 @@
 <mapper namespace="com.ssafy.vue.model.mapper.LikeDealMapper">
 	<!-- 찜한 매물 목록 조회 -->
 	<select id="getLikeDealsByUserIdx" parameterType="int" resultType="likeDealDto">
-		select l.deal_idx, l.user_idx, h.aptCode, i.aptName, h.dealAmount, h.area, i.dongName, h.floor, i.buildYear, h.imgUrl
+		select l.deal_idx as dealIdx, l.user_idx as userIdx, h.aptCode, i.aptName, h.dealAmount, h.area, i.dongName, h.floor, i.buildYear, h.imgUrl
 		from likedeal l
 		join housedeal h
 		on l.deal_idx = h.no
