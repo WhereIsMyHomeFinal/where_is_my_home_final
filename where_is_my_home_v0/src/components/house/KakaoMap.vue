@@ -32,7 +32,7 @@
       <!-- 거주민 리뷰 -->
       <div class="bg-white mb-2">
         <div class="d-flex justify-content-between align-items-center">
-          <h5 class="p-3 m-0">거주민 리뷰</h5>
+          <h4 class="p-3 m-0">거주민 리뷰</h4>
           <!-- <i v-if="isAuth&&level==2" @click="showReviewInsertModal" class="bi bi-plus-circle px-3 cursor-pointer"></i> -->
         </div>
 
@@ -47,7 +47,7 @@
               <!-- <img v-else class="avatar rounded-circle" width=25px src="../assets/images/profile_av.png"> -->
             </div>
             <div class="d-flex flex-column">
-              <h6 class="m-0">{{ review.userName }}</h6>
+              <h5 class="m-0">{{ review.userName }}</h5>
               <div class="text-secondary" style="font-size: 0.9rem">{{ review.registDate }} 가입</div>
             </div>
           </div>
@@ -107,14 +107,14 @@
             </div>
             <div class="pt-2 text-secondary">종합의견</div>
             <div class="py-2">
-              <h6>{{ review.comment }}</h6>
+              <h5>{{ review.comment }}</h5>
             </div>
           </div>
         </div>
       </div>
       <!-- 실거래가 -->
       <div class="bg-white mb-2">
-        <div class="border-bottom"><h5 class="p-3 m-0">실거래가</h5></div>
+        <div class="border-bottom"><h4 class="p-3 m-0">실거래가</h4></div>
         <div>
           <table class="w-100">
             <thead class="bg-secondary text-white">
@@ -310,5 +310,9 @@ export default {
   /* background-color:rgba(255, 244, 244, 0.8); */
   /* opacity: 0.5; */
   overflow-y: auto;
+}
+
+.text-secondary {
+  color: gray;
 }
 </style>
