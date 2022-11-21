@@ -2,8 +2,8 @@ package com.ssafy.vue.model;
 
 public class LikeDealDto {
 //	private int likedeal_idx;
-	private int deal_idx;
-	private int user_idx;
+	private int dealIdx;
+	private int userIdx;
 	private int aptCode;
 	private String aptName;
 	private String dealAmount;
@@ -22,19 +22,19 @@ public class LikeDealDto {
 //	}
 	
 	public int getDeal_idx() {
-		return deal_idx;
+		return dealIdx;
 	}
 	
 	public void setDeal_idx(int deal_idx) {
-		this.deal_idx = deal_idx;
+		this.dealIdx = deal_idx;
 	}
 	
 	public int getUser_idx() {
-		return user_idx;
+		return userIdx;
 	}
 	
 	public void setUser_idx(int user_idx) {
-		this.user_idx = user_idx;
+		this.userIdx = user_idx;
 	}
 	
 	public int getAptCode() {
@@ -103,7 +103,7 @@ public class LikeDealDto {
 
 	@Override
 	public String toString() {
-		return "LikeDealDto [deal_idx=" + deal_idx + ", user_idx=" + user_idx + ", aptCode=" + aptCode + ", aptName="
+		return "LikeDealDto [deal_idx=" + dealIdx + ", user_idx=" + userIdx + ", aptCode=" + aptCode + ", aptName="
 				+ aptName + ", dealAmount=" + dealAmount + ", area=" + area + ", dongName=" + dongName + ", floor="
 				+ floor + ", buildYear=" + buildYear + ", imgUrl=" + imgUrl + "]";
 	}

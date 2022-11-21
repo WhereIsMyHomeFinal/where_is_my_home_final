@@ -9,6 +9,6 @@ import com.ssafy.vue.model.LikeDealDto;
 @Mapper
 public interface LikeDealMapper {
 	
-	public List<LikeDealDto> getLikeDealsByUserIdx(int user_idx);
+	public List<LikeDealDto> getLikeDealsByUserIdx(int userIdx);
 //	public int registerLikeDeal(LikeDealDto likeDealDto);
 }
