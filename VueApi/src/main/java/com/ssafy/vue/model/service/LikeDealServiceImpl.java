@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.vue.model.LikeDealDto;
+import com.ssafy.vue.model.RegisterLikeDealParameterDto;
 import com.ssafy.vue.model.mapper.LikeDealMapper;
 
 @Service
@@ -18,6 +19,11 @@ public class LikeDealServiceImpl implements LikeDealService {
 	@Override
 	public List<LikeDealDto> getLikeDealsByUserIdx(int userIdx) {
 		return sqlSession.getMapper(LikeDealMapper.class).getLikeDealsByUserIdx(userIdx);
+	}
+
+	@Override
+	public boolean registerLikeDeal(RegisterLikeDealParameterDto registerLikeDealParameterDto) {
+		return sqlSession.getMapper(LikeDealMapper.class).insertLikeDeal(registerLikeDealParameterDto) > 0;
 	}
 
 }
