@@ -43,7 +43,7 @@
       <div class="bg-white mb-2">
         <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
           <h4 class="m-0">{{ aptlist[curIndex].aptName }}</h4>
-          <!-- <HeartBtn v-if="isAuth&&level==2" class="px-1" :enabled="aptlist[curIndex].bookmark" @changeHeartBtn="onBookmarkHouse" /> -->
+          <HeartBtn class="px-1" :enabled="aptlist[curIndex].bookmark" @changeHeartBtn="onBookmarkHouse" />
         </div>
         <div id="roadview" style="width: 100%; height: 300px"></div>
         <!-- contents -->
@@ -55,6 +55,18 @@
           <div class="d-flex py-2">
             <div class="text-secondary w-25">건축년도</div>
             <div>{{ aptlist[curIndex].buildYear }}</div>
+          </div>
+          <div class="d-flex py-2">
+            <div class="text-secondary w-25">거래가격</div>
+            <div>{{ dealInfo.dealAmount }}</div>
+          </div>
+          <div class="d-flex py-2">
+            <div class="text-secondary w-25">면적</div>
+            <div>{{ dealInfo.area }}</div>
+          </div>
+          <div class="d-flex py-2">
+            <div class="text-secondary w-25">층수</div>
+            <div>{{ dealInfo.floor }}</div>
           </div>
         </div>
       </div>
@@ -141,30 +153,6 @@
           </div>
         </div>
       </div>
-      <!-- 실거래가 -->
-      <div class="bg-white mb-2">
-        <div class="border-bottom"><h4 class="p-3 m-0">실거래가</h4></div>
-        <div>
-          <table class="w-100">
-            <thead class="bg-secondary text-white">
-              <tr>
-                <!-- <td class="ps-3 py-1">거래일</td> -->
-                <td>거래가격</td>
-                <td>면적</td>
-                <td>층수</td>
-              </tr>
-            </thead>
-            <tbody class="px-2">
-              <tr class="border-bottom">
-                <!-- <td class="ps-3 py-2">{{dealInfo.dealYear}}</td> -->
-                <td>{{ dealInfo.dealAmount }}</td>
-                <td>{{ dealInfo.area }}</td>
-                <td>{{ dealInfo.floor }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
       <!-- 매물정보 -->
       <!-- <div class="bg-white mb-2">
         <div class="border-bottom"><h5 class="p-3 m-0">매물 정보</h5></div>
@@ -200,7 +188,8 @@ import http from "@/api/http.js";
 import DongSearch from "@/components/house/tabbox/DongSearch.vue";
 import KeywordSearch from "@/components/house/tabbox/KeywordSearch.vue";
 import StarRating from "vue-star-rating";
-import { nextTick } from "vue";
+import { nextTick } from 'vue'
+import HeartBtn from "@/components/icon/HeartBtn.vue";
 
 export default {
   name: "KakaoMap",
@@ -208,6 +197,7 @@ export default {
     DongSearch,
     KeywordSearch,
     StarRating,
+    HeartBtn,
   },
   data() {
     return {
@@ -217,6 +207,7 @@ export default {
       markers: [],
       reviewList: [],
       currCategory: "",
+      heart: true,
     };
   },
   methods: {
