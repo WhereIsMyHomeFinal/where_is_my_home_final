@@ -170,7 +170,7 @@ export default {
     },
     addMarkers(aptlist) {
       console.log("addmarkers");
-      this.initMap();
+      // this.initMap();
       this.listVisible = false;
       // console.log(aptlist[0]);
       this.aptlist = aptlist;
