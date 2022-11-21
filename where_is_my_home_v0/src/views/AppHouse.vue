@@ -20,11 +20,11 @@
       </b-col>
     </b-row>
   </b-container> -->
-  <b-row>
-    <b-col>
+  <!-- <b-row>
+    <b-col> -->
       <kakao-map />
-    </b-col>
-  </b-row>
+    <!-- </b-col>
+  </b-row> -->
 </template>
 <script>
 // import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
