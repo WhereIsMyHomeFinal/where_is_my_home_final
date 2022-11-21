@@ -13,4 +13,8 @@
 		on h.aptCode = i.aptCode
 		where user_idx = #{user_idx}
 	</select>
+	
+	<insert id="insertLikeDeal" parameterType="registerLikeDealParameterDto">
+		insert into likedeal (deal_idx, user_idx) values(#{dealIdx}, #{userIdx})
+	</insert>
 </mapper>
