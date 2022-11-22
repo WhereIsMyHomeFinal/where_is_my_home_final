@@ -1,5 +1,6 @@
 package com.ssafy.vue.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -12,4 +13,5 @@ public interface LikeDealMapper {
 	
 	public List<LikeDealDto> getLikeDealsByUserIdx(int userIdx);
 	public int insertLikeDeal(RegisterLikeDealParameterDto registerLikeDealParameterDto);
+	public int deleteLikeDeal(HashMap<String, Integer> map);
 }

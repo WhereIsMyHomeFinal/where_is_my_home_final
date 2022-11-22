@@ -15,7 +15,7 @@
 import HeartIcon from "./HeartIcon";
 export default {
   name: "HeartBtn",
-  props: ['enabled', 'index'],
+  props: ['enabled'],
   components: {
     HeartIcon
   },
@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     toggle() {
+      console.log(this.heart, this.enabled);
       // Only animate on favoriting.
       if (!this.heart) {
         this.animating = true;
@@ -43,7 +44,6 @@ export default {
       this.heart = !this.heart;
       this.$emit('changeHeartBtn', {
         enabled: this.heart,
-        index: this.index,
       });
     },
     onIconAnimationEnds() {

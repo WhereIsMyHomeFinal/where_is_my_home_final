@@ -1,5 +1,6 @@
 package com.ssafy.vue.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,10 @@ public class HouseDealServiceImpl implements HouseDealService {
 	}
 	
 	@Override
-	public HouseDealDto getHouseDeal(int no) {
-		return houseDealDAO.selectHouseDeal(no);
+	public HouseDealDto getHouseDeal(HashMap<String, Integer> map) {
+		System.out.println(map.get("userIdx"));
+		System.out.println(map.get("dealIdx"));
+		return houseDealDAO.selectHouseDeal(map);
 	}
 
 	@Override

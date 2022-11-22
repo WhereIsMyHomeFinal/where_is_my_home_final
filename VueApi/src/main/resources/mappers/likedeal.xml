@@ -17,4 +17,9 @@
 	<insert id="insertLikeDeal" parameterType="registerLikeDealParameterDto">
 		insert into likedeal (deal_idx, user_idx) values(#{dealIdx}, #{userIdx})
 	</insert>
+	
+	<delete id="deleteLikeDeal" parameterType="map">
+		delete from likedeal 
+		where user_idx = #{userIdx} and deal_idx = #{dealIdx}
+	</delete>
 </mapper>

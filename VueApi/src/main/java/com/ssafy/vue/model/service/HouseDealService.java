@@ -1,5 +1,6 @@
 package com.ssafy.vue.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import com.ssafy.vue.model.SidoGugunCodeDto;
 
 public interface HouseDealService {
 
-	HouseDealDto getHouseDeal(int no);
+	HouseDealDto getHouseDeal(HashMap<String, Integer> map);
 
 	List<HouseDealDto> getHouseDeals(Map<String, Object> conditions);
 	

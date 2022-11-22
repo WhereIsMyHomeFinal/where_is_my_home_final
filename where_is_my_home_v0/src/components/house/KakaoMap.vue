@@ -43,7 +43,7 @@
       <div class="bg-white mb-2">
         <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
           <h4 class="m-0">{{ aptlist[curIndex].aptName }}</h4>
-          <HeartBtn class="px-1" :enabled="aptlist[curIndex].bookmark" @changeHeartBtn="onBookmarkHouse" />
+          <HeartBtn class="px-1" :enabled="aptlist[curIndex].liked" @changeHeartBtn="onLikedHouse" />
         </div>
         <div id="roadview" style="width: 100%; height: 300px"></div>
         <!-- contents -->
@@ -190,6 +190,9 @@ import KeywordSearch from "@/components/house/tabbox/KeywordSearch.vue";
 import StarRating from "vue-star-rating";
 import { nextTick } from 'vue'
 import HeartBtn from "@/components/icon/HeartBtn.vue";
+import { mapState } from 'vuex';
+
+const memberStore = "memberStore";
 
 export default {
   name: "KakaoMap",
@@ -199,6 +202,9 @@ export default {
     StarRating,
     HeartBtn,
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   data() {
     return {
       listVisible: false,
@@ -207,7 +213,8 @@ export default {
       markers: [],
       reviewList: [],
       currCategory: "",
-      heart: true,
+      curIndex : 0,
+      // heart: true,
     };
   },
   methods: {
@@ -288,9 +295,10 @@ export default {
       await nextTick();
       const no = this.aptlist[index].no;
       // const aptCode = this.aptlist[index].aptCode;
-      http.get(`/house-deals/${no}`).then(({ data }) => {
+      http.get(`/house-deals/${this.userInfo.userIdx}/${no}`).then(({ data }) => {
         console.log(data);
         this.dealInfo = data;
+        // this.heart = data.liked;
       });
       http.get(`/reviews/${no}`).then(({ data }) => {
         console.log(data);
@@ -444,6 +452,38 @@ export default {
 
       if (el) {
         el.className = "on";
+      }
+    },
+    onLikedHouse({ enabled }) {
+      // this.heart = enabled;
+      if (enabled) {
+        http.post(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
+        .then(({ data }) => {
+          this.aptlist[this.curIndex].liked = enabled;
+          console.log(`enabled: ${enabled}, liked: ${this.aptlist[this.curIndex].liked}`);
+          // if (data.result == 'login') {
+          //   this.$swal('세션이 만료되었거나, 로그인되지 않았습니다. 로그인 페이지로 이동합니다.', { icon: 'warning' })
+          //     .then(() => {
+          //       this.SET_USER_LOGOUT();
+          //       this.$router.push('/user/login');
+          //     })
+          // }
+        }) 
+        .catch(error => this.$swal('서버에 문제가 발생하였습니다.', { icon: 'error' }))
+      } else {
+        http.delete(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
+        .then(({ data }) => {
+          this.aptlist[this.curIndex].liked = enabled;
+          console.log(`enabled: ${enabled}, lked: ${this.aptlist[this.curIndex].liked}`);
+            // if (data.result == 'login') {
+            //   this.$swal('세션이 만료되었거나, 로그인되지 않았습니다. 로그인 페이지로 이동합니다.', { icon: 'warning' })
+            //     .then(() => {
+            //       this.SET_USER_LOGOUT();
+            //       this.$router.push('/user/login');
+            //     })
+            // }
+          })
+        .catch(error => this.$swal('서버에 문제가 발생하였습니다.', { icon: 'error' }))
       }
     },
   },
