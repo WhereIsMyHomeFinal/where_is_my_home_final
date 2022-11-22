@@ -1,5 +1,6 @@
 package com.ssafy.vue.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -26,4 +27,8 @@ public class LikeDealServiceImpl implements LikeDealService {
 		return sqlSession.getMapper(LikeDealMapper.class).insertLikeDeal(registerLikeDealParameterDto) > 0;
 	}
 
+	@Override
+	public boolean deleteLikeDeal(HashMap<String, Integer> map) {
+		return sqlSession.getMapper(LikeDealMapper.class).deleteLikeDeal(map) > 0;
+	}
 }

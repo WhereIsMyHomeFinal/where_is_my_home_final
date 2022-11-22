@@ -9,7 +9,7 @@ import com.ssafy.vue.model.ReviewDto;
 @Mapper
 public interface ReviewMapper {
 
-	public List<ReviewDto> getReviews(int dealIdx);
+	public List<ReviewDto> getReviews(int aptCode);
 	public int registerReview(ReviewDto review);
 	public int deleteReview(int reviewIdx);
 	

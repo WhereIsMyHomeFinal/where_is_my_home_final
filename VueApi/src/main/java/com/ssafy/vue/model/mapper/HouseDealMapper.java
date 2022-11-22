@@ -1,5 +1,6 @@
 package com.ssafy.vue.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public interface HouseDealMapper {
 
 	List<HouseDealDto> selectHouseDeals(Map<String, Object> conditions);
 
-	HouseDealDto selectHouseDeal(int no);
+	HouseDealDto selectHouseDeal(HashMap<String, Integer> map);
 	
 	List<SidoGugunCodeDto> getSido();
 	

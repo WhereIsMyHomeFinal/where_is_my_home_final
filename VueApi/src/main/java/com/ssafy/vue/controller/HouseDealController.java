@@ -1,6 +1,5 @@
 package com.ssafy.vue.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,13 +42,16 @@ public class HouseDealController {
 		
 	}
 
-	@GetMapping("/{no}")
-	private ResponseEntity<HouseDealDto> getHouse(@PathVariable int no) {
-		HouseDealDto houseDeal = houseService.getHouseDeal(no);
+	@GetMapping("/{userIdx}/{dealIdx}")
+	private ResponseEntity<HouseDealDto> getHouse(@PathVariable int userIdx, @PathVariable int dealIdx) {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("userIdx", userIdx);
+		map.put("dealIdx", dealIdx);
+		HouseDealDto houseDeal = houseService.getHouseDeal(map);
 		if(houseDeal != null) {
 			return ResponseEntity.ok(houseDeal);
 		}else {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 	

@@ -19,8 +19,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<ReviewDto> getReviews(int dealIdx) {
-		return reviewMapper.getReviews(dealIdx);
+	public List<ReviewDto> getReviews(int aptCode) {
+		return reviewMapper.getReviews(aptCode);
 	}
 
 	@Override

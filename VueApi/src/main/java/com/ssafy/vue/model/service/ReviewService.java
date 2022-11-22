@@ -6,7 +6,7 @@ import com.ssafy.vue.model.ReviewDto;
 
 public interface ReviewService {
 
-	public List<ReviewDto> getReviews(int dealIdx);
+	public List<ReviewDto> getReviews(int aptCode);
 	public boolean registerReview(ReviewDto review);
 	public boolean deleteReview(int reviewIdx);
 	

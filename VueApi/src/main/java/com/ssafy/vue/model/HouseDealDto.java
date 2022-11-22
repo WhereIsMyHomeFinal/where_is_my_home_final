@@ -11,6 +11,7 @@ public class HouseDealDto {
 	private int buildYear;
 	private String lat;
 	private String lng;
+	private boolean isLiked;
 	
 //	public HouseDeal(int no, int aptCode, String aptName, String dealAmount, String area, String dongName, String floor, int buildYear,
 //			String lat, String lng) {
@@ -27,6 +28,14 @@ public class HouseDealDto {
 //		this.lng = lng;
 //	}
 	
+	public boolean isLiked() {
+		return isLiked;
+	}
+
+	public void setLiked(boolean isLiked) {
+		this.isLiked = isLiked;
+	}
+
 	public int getNo() {
 		return no;
 	}
