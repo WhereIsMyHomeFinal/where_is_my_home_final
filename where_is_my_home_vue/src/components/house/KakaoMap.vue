@@ -30,25 +30,25 @@
         </div>
       </div>
       <!-- 거주민 리뷰 -->
-      <!-- <div class="bg-white mb-2">
+      <div class="bg-white mb-2">
         <div class="d-flex justify-content-between align-items-center">
           <h5 class="p-3 m-0">거주민 리뷰</h5>
-          <i v-if="isAuth&&level==2" @click="showReviewInsertModal" class="bi bi-plus-circle px-3 cursor-pointer"></i>
+          <!-- <i v-if="isAuth&&level==2" @click="showReviewInsertModal" class="bi bi-plus-circle px-3 cursor-pointer"></i> -->
         </div>
 
         <div v-if="reviewList.length==0" class="p-3 border-top">
           <div>등록된 리뷰가 없습니다.</div>
-        </div> -->
+        </div>
         <!-- 등록 리뷰 있을 때 v-for 속성 추가-->
-        <!-- <div v-else v-for="(review, index) in reviewList" :key="index">
+        <div v-else v-for="(review, index) in reviewList" :key="index">
           <div class="border-top border-bottom d-flex align-items-center p-2">
-            <div class="text-secondary ps-2 pe-3"> -->
+            <div class="text-secondary ps-2 pe-3">
               <!-- <img v-if="review.userProfileImage" class="avatar rounded-circle" width=25px :src="review.userProfileImage"> -->
               <!-- <img v-else class="avatar rounded-circle" width=25px src="../assets/images/profile_av.png"> -->
-            <!-- </div>
+            </div>
             <div class="d-flex flex-column">
               <h6 class="m-0">{{ review.userName }}</h6>
-              <div class="text-secondary" style="font-size: 0.9rem;">{{ makeDateStr(review.regDt.date.year, review.regDt.date.month, review.regDt.date.day, '.') }} 가입</div>
+              <div class="text-secondary" style="font-size: 0.9rem;">{{ review.registDate }} 가입</div>
             </div>
           </div>
           <div class="px-3">
@@ -73,14 +73,14 @@
             <div class="border-bottom d-flex py-2">
               <div class="text-secondary w-25">주변환경</div>
               <div>
-                <StarRating v-model="review.surroundingScore" :read-only="true" :show-rating="false" :rounded-corners="true" :star-size="20" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></StarRating>
+                <StarRating v-model="review.surroundScore" :read-only="true" :show-rating="false" :rounded-corners="true" :star-size="20" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></StarRating>
               </div>
             </div>
             <div class="pt-2 text-secondary">종합의견</div>
-            <div class="py-2"><h6>{{ review.content }}</h6></div>
+            <div class="py-2"><h6>{{ review.comment }}</h6></div>
           </div>
         </div>
-      </div>  -->
+      </div> 
       <!-- 실거래가 -->
       <div class="bg-white mb-2">
         <div class="border-bottom"><h5 class="p-3 m-0">실거래가</h5></div>
@@ -139,12 +139,14 @@
 import http from "@/api/http.js";
 import DongSearch from "@/components/house/tabbox/DongSearch.vue";
 import KeywordSearch from '@/components/house/tabbox/KeywordSearch.vue';
+import StarRating from 'vue-star-rating';
 
 export default {
   name: "KakaoMap",
   components: {
     DongSearch,
     KeywordSearch,
+    StarRating,
   },
   data() {
     return {
@@ -152,6 +154,7 @@ export default {
       dealInfo: {},
       aptlist: [],
       markers: [],
+      reviewList: [],
     };
   },
   methods: {
@@ -167,7 +170,7 @@ export default {
     },
     addMarkers(aptlist) {
       console.log("addmarkers");
-      this.initMap();
+      // this.initMap();
       this.listVisible = false;
       // console.log(aptlist[0]);
       this.aptlist = aptlist;
@@ -216,10 +219,15 @@ export default {
       console.log("showhousedetail");
       this.curIndex = index;
       const no = this.aptlist[index].no;
+      const aptCode = this.aptlist[index].aptCode;
       http.get(`/house-deals/${no}`)
       .then(({ data }) => {
         console.log(data);
         this.dealInfo = data;
+      });
+      http.get(`/reviews/${aptCode}`)
+      .then(({ data }) => {
+        this.reviewList = data;
       });
       // this.getHouseDeal(no);
       // this.getOngoingList(no);
@@ -264,7 +272,7 @@ export default {
 #showList {
   position: absolute;
   top: 235px;
-  bottom : 400px;
+  bottom : 20px;
   right: 1505px;
   width: 400px;
   padding: 10px;

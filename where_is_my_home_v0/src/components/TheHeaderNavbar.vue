@@ -116,4 +116,5 @@ export default {
   text-decoration: none;
   color: #6E8A8E;
 }
+
 </style>

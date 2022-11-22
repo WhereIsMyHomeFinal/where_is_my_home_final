@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.vue.model.HouseDeal;
+import com.ssafy.vue.model.HouseDealDto;
 import com.ssafy.vue.model.SidoGugunCodeDto;
 import com.ssafy.vue.model.service.HouseDealService;
 
@@ -24,12 +24,12 @@ public class HouseDealController {
 	private HouseDealService houseService;
 	
 	@GetMapping	// 둘 다 선택 안하면 그냥 전체 데이터에서 dealAmount가 큰 순으로 9개 가져옴 -> 사용자에게 유도하도록 추후 수정?
-	private ResponseEntity<List<HouseDeal>> getHouseDeals(@RequestParam(required = false) String aptName, @RequestParam(required = false) String dongName) {
+	private ResponseEntity<List<HouseDealDto>> getHouseDeals(@RequestParam(required = false) String aptName, @RequestParam(required = false) String dongName) {
 		
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		if(aptName != null) conditions.put("aptName", aptName);
 		if(dongName != null) conditions.put("dongName", dongName);
-		List<HouseDeal> houseDeals = houseService.getHouseDeals(conditions);
+		List<HouseDealDto> houseDeals = houseService.getHouseDeals(conditions);
 		if(houseDeals != null) {
 			if(houseDeals.size() == 0) {
 				return ResponseEntity.noContent().build();
@@ -42,13 +42,16 @@ public class HouseDealController {
 		
 	}
 
-	@GetMapping("/{no}")
-	private ResponseEntity<HouseDeal> getHouse(@PathVariable int no) {
-		HouseDeal houseDeal = houseService.getHouseDeal(no);
+	@GetMapping("/{userIdx}/{dealIdx}")
+	private ResponseEntity<HouseDealDto> getHouse(@PathVariable int userIdx, @PathVariable int dealIdx) {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("userIdx", userIdx);
+		map.put("dealIdx", dealIdx);
+		HouseDealDto houseDeal = houseService.getHouseDeal(map);
 		if(houseDeal != null) {
 			return ResponseEntity.ok(houseDeal);
 		}else {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 	
@@ -63,8 +66,7 @@ public class HouseDealController {
 	}
 	
 	@GetMapping("/{gugun}/dong")
-	private ResponseEntity<List<HouseDeal>> getDongInGugun(@PathVariable String gugun) {
-		System.out.println(gugun);
-		return new ResponseEntity<List<HouseDeal>>(houseService.getDongInGugun(gugun), HttpStatus.OK);
+	private ResponseEntity<List<HouseDealDto>> getDongInGugun(@PathVariable String gugun) {
+		return new ResponseEntity<List<HouseDealDto>>(houseService.getDongInGugun(gugun), HttpStatus.OK);
 	}
 }
