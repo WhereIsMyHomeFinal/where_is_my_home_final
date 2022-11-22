@@ -8,7 +8,7 @@
 				r.living_score as livingScore, comment, r.regist_date as registDate
 		from review r join ssafy_member s
 		on r.user_idx = s.user_idx
-		where deal_idx = #{dealIdx}
+		where deal_idx = #{aptCode}
 	</select>
 
 	<insert id="registerReview" parameterType="ReviewDto">

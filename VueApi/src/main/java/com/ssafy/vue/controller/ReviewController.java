@@ -24,9 +24,9 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
-	@GetMapping("/{dealIdx}")
-	private ResponseEntity<List<ReviewDto>> getReviews(@PathVariable int dealIdx) {
-		List<ReviewDto> reviews = reviewService.getReviews(dealIdx);
+	@GetMapping("/{aptCode}")
+	private ResponseEntity<List<ReviewDto>> getReviews(@PathVariable int aptCode) {
+		List<ReviewDto> reviews = reviewService.getReviews(aptCode);
 		System.out.println("length : " + reviews.size());
 		return ResponseEntity.ok(reviews);
 	}

@@ -29,6 +29,17 @@
         </li>
       </ul>
     </div>
+    <div>
+      <b-form-group id="radiobox" class="card" v-slot="{ ariaDescribedby }">
+        <b-form-radio-group
+          id="radiobox"
+          v-model="selected"
+          :options="options"
+          :aria-describedby="ariaDescribedby"
+          name="radios-btn-default"
+        ></b-form-radio-group>
+      </b-form-group>
+    </div>
     <div id="searchBox" class="card">
       <b-tabs content-class="mt-3">
         <b-tab title="동 검색" active>
@@ -39,8 +50,13 @@
         </b-tab>
       </b-tabs>
     </div>
-    <div v-if="listVisible" id="showList" class="card p-0 bg-secondary">
-      <b-tabs content-class="mt-3">
+    <div id="showList" v-if="listVisible" class="card p-0 bg-secondary">
+      <div v-if="curIndex < 0">
+        <div v-for="(apt, index) in aptlist" :key="index">
+          <h4 class="m-0">{{ apt.aptName }}</h4>
+        </div>
+      </div>
+      <b-tabs v-else content-class="mt-3">
         <b-tab title="기본 정보" active>
           <div class="bg-white mb-2">
             <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
@@ -281,11 +297,18 @@ export default {
       markers: [],
       reviewList: [],
       currCategory: "",
-      curIndex : 0,
+      curIndex : -1,
       sum_recommend: 0.0,
       sum_traffic: 0.0,
       sum_living: 0.0,
       sum_surround: 0.0,
+      selected: "recommend",
+      options: [
+        { value: "recommend", text: "추천점수"},
+        { value: "traffic", text: "교통요건"},
+        { value: "living", text: "거주환경"},
+        { value: "surround", text: "주변환경"},
+      ],
     };
   },
   methods: {
@@ -310,6 +333,7 @@ export default {
       this.addCategoryClickEvent();
     },
     addMarkers(aptlist) {
+      this.curIndex = -1;
       console.log("addmarkers");
       // this.initMap();
       this.removeMarker();
@@ -318,7 +342,7 @@ export default {
       this.markers = [];
       this.aptlist = aptlist;
       let bounds = new kakao.maps.LatLngBounds();
-
+      this.listVisible = true;
       aptlist.forEach(({ lat, lng }, index) => {
         // console.log(`forEach ${index}`)
         let markerPosition = new kakao.maps.LatLng(lat, lng);
@@ -370,11 +394,12 @@ export default {
       this.curIndex = index;
       await nextTick();
       const no = this.aptlist[index].no;
+      const aptCode = this.aptlist[index].aptCode;
       http.get(`/house-deals/${this.userInfo.userIdx}/${no}`).then(({ data }) => {
         console.log(data);
         this.dealInfo = data;
       });
-      http.get(`/reviews/${no}`).then(({ data }) => {
+      http.get(`/reviews/${aptCode}`).then(({ data }) => {
         console.log(data);
         this.reviewList = data;
         this.reviewList.forEach((review) => {
@@ -597,6 +622,19 @@ export default {
   width: 100%;
   height: 91vh;
 }
+#radiobox {
+  position: absolute;
+  top: 43px;
+  left: 160px;
+  width: 495px;
+  font-size: 20px;
+  border-radius: 10px;
+  /* line-height: 2rem; */
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  /* overflow-y: auto; */
+}
 #searchBox {
   position: absolute;
   top: 150px;
@@ -613,8 +651,8 @@ export default {
 }
 #showList {
   position: absolute;
-  top: 290px;
-  bottom: 20px;
+  top: 287px;
+  bottom: 10px;
   left: 10px;
   /* right: 1505px; */
   width: 400px;
