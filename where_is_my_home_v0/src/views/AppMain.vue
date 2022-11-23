@@ -2,98 +2,71 @@
 // import vueMkHeader from "@/assets/main_02.png";
 </script>
 <template>
-  <!-- <Header>
-    <div class="page-header min-vh-100" :style="`background-image: url(${vueMkHeader})`" loading="lazy">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-7 text-center mx-auto position-relative">
-            <h1 class="text-white pt-3 mt-n5 me-2" :style="{ display: 'inline-block ' }"></h1>
+  <div id="hero-slider">
+    <div id="logo" class="mask">
+      <span class="logo-text masked">Martin Rohde</span>
+    </div>
+    <div id="slideshow">
+      <div id="slides-main" class="slides">
+        <div class="slide" data-index="0">
+          <div class="abs-mask">
+            <div class="slide-image" style="background-image: url('https://bit.ly/3AFexJI')"></div>
+          </div>
+        </div>
+        <div class="slide" data-index="1">
+          <div class="abs-mask">
+            <div class="slide-image" style="background-image: url('https://bit.ly/3EuNbqU')"></div>
+          </div>
+        </div>
+        <div class="slide" data-index="2">
+          <div class="abs-mask">
+            <div class="slide-image" style="background-image: url('https://bit.ly/3tPlfZT')"></div>
+          </div>
+        </div>
+        <div class="slide" data-index="3">
+          <div class="abs-mask">
+            <div class="slide-image" style="background-image: url('https://bit.ly/3VfpIjW')"></div>
           </div>
         </div>
       </div>
+      <div id="slides-aux" class="slides mask">
+        <h2 class="slide-title slide" data-index="0"><a class="slide-title-link" href="#">#64 Paradigm</a></h2>
+        <h2 class="slide-title slide" data-index="1"><a class="slide-title-link" href="#">Industrial Works</a></h2>
+        <h2 class="slide-title slide" data-index="2"><a class="slide-title-link" href="#">Future Lights</a></h2>
+        <h2 class="slide-title slide" data-index="3"><a class="slide-title-link" href="#">The Colossal</a></h2>
+      </div>
     </div>
-  </Header> -->
-  <div>
-    <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height="480"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="안녕하세요! 구해줘 홈즈 입니다."
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://lab.ssafy.com/ekdub92/whereismyhome08_7/uploads/467e7a159ada2ec716ae6d68c203341c/main_03.png"
-      ></b-carousel-slide>
-
-      <!-- Slides with custom text -->
-      <b-carousel-slide
-        img-src="https://lab.ssafy.com/ekdub92/whereismyhome08_7/uploads/467e7a159ada2ec716ae6d68c203341c/main_03.png"
-      >
-        <h1>Hello world!</h1>
-      </b-carousel-slide>
-
-      <!-- Slides with image only -->
-      <b-carousel-slide
-        img-src="https://lab.ssafy.com/ekdub92/whereismyhome08_7/uploads/467e7a159ada2ec716ae6d68c203341c/main_03.png"
-      ></b-carousel-slide>
-
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://lab.ssafy.com/ekdub92/whereismyhome08_7/uploads/467e7a159ada2ec716ae6d68c203341c/main_03.png"
-            alt="image slot"
-          />
-        </template>
-      </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
+    <div id="info">
+      <div class="slider-title-wrapper">
+        <span class="line"></span>
+        <h1 class="slider-title">
+          <span>Projects</span>
+        </h1>
+      </div>
+      <div class="about">
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt a tincidunt eget,
-          convallis vel est. Ut pellentesque ut lacus vel interdum.
+          A pure CSS/JS slider layout<br />
+          Developed for Toptal engineering blog<br />
+          by <a href="http://stefan.lynxdev.io" target="_blank">Stefan V</a>, repo on
+          <a href="https://github.com/vitass/pure-css-js-slider" target="_blank">Github</a>
         </p>
-      </b-carousel-slide>
-    </b-carousel>
-
-    <p class="mt-4">
-      Slide #: {{ slide }}<br />
-      Sliding: {{ sliding }}
-    </p>
+      </div>
+    </div>
+    <nav id="slider-nav">
+      <span class="current">01</span>
+      <span class="sep"></span>
+      <span class="total">04</span>
+    </nav>
   </div>
 </template>
 
 <script>
+import { heroSlider } from "@/assets/js/main";
 export default {
   name: "AppMain",
-  props: {
-    msg: String,
-  },
-  data() {
-    return {
-      slide: 0,
-      sliding: null,
-    };
-  },
-  methods: {
-    onSlideStart() {
-      this.sliding = true;
-    },
-    onSlideEnd() {
-      this.sliding = false;
-    },
+  mounted() {
+    window.addEventListener("load", heroSlider().init);
+    window.addEventListener("resize", heroSlider().resize);
   },
 };
 </script>
@@ -103,4 +76,11 @@ export default {
   display: inline-block;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(72, 190, 233, 0.3) 30%);
 } */
+@import "@/assets/css/reset.css";
+@import "@/assets/css/style.css";
+@import "https://fonts.googleapis.com/css?family=Muli:300,400,700,900";
+
+.slide-title-link {
+  color: aliceblue;
+}
 </style>
