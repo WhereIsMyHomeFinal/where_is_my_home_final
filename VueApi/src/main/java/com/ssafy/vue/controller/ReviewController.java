@@ -27,7 +27,7 @@ public class ReviewController {
 	@GetMapping("/{aptCode}")
 	private ResponseEntity<List<ReviewDto>> getReviews(@PathVariable int aptCode) {
 		List<ReviewDto> reviews = reviewService.getReviews(aptCode);
-		System.out.println("length : " + reviews.size());
+		System.out.println(reviews.toString());
 		return ResponseEntity.ok(reviews);
 	}
 	
