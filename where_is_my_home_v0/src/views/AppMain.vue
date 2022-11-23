@@ -4,7 +4,7 @@
 <template>
   <div id="hero-slider">
     <div id="logo" class="mask">
-      <span class="logo-text masked">Martin Rohde</span>
+      <span class="logo-text masked">Where is my home?</span>
     </div>
     <div id="slideshow">
       <div id="slides-main" class="slides">
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div id="info">
-      <div class="slider-title-wrapper">
+      <!-- <div class="slider-title-wrapper">
         <span class="line"></span>
         <h1 class="slider-title">
           <span>Projects</span>
@@ -58,7 +58,7 @@
           by <a href="http://stefan.lynxdev.io" target="_blank">Stefan V</a>, repo on
           <a href="https://github.com/vitass/pure-css-js-slider" target="_blank">Github</a>
         </p>
-      </div>
+      </div> -->
     </div>
     <nav id="slider-nav">
       <span class="current">01</span>
@@ -73,8 +73,8 @@ export default {
   name: "AppMain",
   data() {
     return {
-      slider: {}
-    }
+      slider: {},
+    };
   },
   mounted() {
     this.slider = this.heroSlider();
@@ -158,9 +158,7 @@ export default {
        * @param {int|object} handle The callback function
        */
       const clearRequestInterval = function (handle) {
-        window.cancelAnimationFrame
-          ? window.cancelAnimationFrame(handle.value)
-          : clearInterval(handle);
+        window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) : clearInterval(handle);
       };
 
       return {
@@ -187,7 +185,7 @@ export default {
         interval: 3500,
       };
 
-      const setHeight = (holder, items)=> {
+      const setHeight = (holder, items) => {
         const h = this.utils().calcMaxHeight(items);
         holder.style.height = `${h}px`;
       };
@@ -200,7 +198,7 @@ export default {
         slider.current.innerText = leadingZero`${slider.activeIndex + 1}`;
       };
 
-      const changeSlide =  (direction)=>{
+      const changeSlide = (direction) => {
         slider.idle = false;
         slider.hero.classList.remove("prev", "next");
         if (direction == "next") {
@@ -241,7 +239,7 @@ export default {
         });
       };
 
-      const stopAutoplay = ()=>{
+      const stopAutoplay = () => {
         slider.autoplay = false;
         this.utils().clearRequestInterval(slider.handle);
       };
@@ -261,7 +259,7 @@ export default {
         });
       };
 
-      const autoplay = (initial)=> {
+      const autoplay = (initial) => {
         slider.autoplay = true;
         slider.items = slider.hero.querySelectorAll("[data-index]");
         slider.total = slider.items.length / 2;
@@ -329,7 +327,6 @@ export default {
       };
     },
   },
-
 };
 </script>
 
