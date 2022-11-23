@@ -19,4 +19,5 @@ public interface HouseDealService {
 	
 	public List<HouseDealDto> getDongInGugun(String gugun);
 	
+	public List<HouseDealDto> getScores(List<HouseDealDto> houseDeals);
 }

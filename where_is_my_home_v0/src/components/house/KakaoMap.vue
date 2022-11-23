@@ -30,23 +30,22 @@
       </ul>
     </div>
     <div>
-      <!-- <b-form-group id="radiobox" class="card" v-slot="{ ariaDescribedby }"> -->
+      <b-form-group id="radiobox" class="card" v-slot="{ ariaDescribedby }">
         <b-form-radio-group
-          id="radiobox"
           v-model="selected"
           :options="options"
           :aria-describedby="ariaDescribedby"
           name="radios-btn-default"
         ></b-form-radio-group>
-      <!-- </b-form-group> -->
+      </b-form-group>
     </div>
     <div id="searchBox" class="card">
       <b-tabs content-class="mt-3">
         <b-tab title="동 검색" active>
-          <dong-search @searched-houses="addMarkers" />
+          <dong-search :selected="selected" @searched-houses="addMarkers" />
         </b-tab>
         <b-tab title="키워드 검색">
-          <keyword-search @searched-houses="addMarkers" />
+          <keyword-search :selected="selected" @searched-houses="addMarkers" />
         </b-tab>
       </b-tabs>
     </div>
@@ -473,11 +472,11 @@ export default {
       // this.removeMarker();
       this.ps.categorySearch(this.currCategory, this.placesSearchCB, { useMapBounds: true });
     },
-    placesSearchCB(data, status, pagination) {
+    placesSearchCB(data, status) {
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
         this.displayPlaces(data);
-        displayPagination(pagination);
+        // displayPagination(pagination);
         // } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         //   // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
         // } else if (status === kakao.maps.services.Status.ERROR) {
@@ -592,7 +591,7 @@ export default {
     onLikedHouse({ enabled }) {
       if (enabled) {
         http.post(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
-        .then(({ data }) => {
+        .then(() => {
           this.aptlist[this.curIndex].liked = enabled;
           // console.log(`enabled: ${enabled}, liked: ${this.aptlist[this.curIndex].liked}`);
           // if (data.result == 'login') {
@@ -603,10 +602,10 @@ export default {
           //     })
           // }
         }) 
-        .catch(error => this.$swal('서버에 문제가 발생하였습니다.', { icon: 'error' }))
+        .catch(() => this.$swal('서버에 문제가 발생하였습니다.', { icon: 'error' }))
       } else {
         http.delete(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
-        .then(({ data }) => {
+        .then(() => {
           this.aptlist[this.curIndex].liked = enabled;
           // console.log(`enabled: ${enabled}, liked: ${this.aptlist[this.curIndex].liked}`);
             // if (data.result == 'login') {
@@ -617,7 +616,7 @@ export default {
             //     })
             // }
         })
-        .catch(error => this.$swal('서버에 문제가 발생하였습니다.', { icon: 'error' }))
+        .catch(() => this.$swal('서버에 문제가 발생하였습니다.', { icon: 'error' }))
       }
     },
     displayMouseInfo(index) {

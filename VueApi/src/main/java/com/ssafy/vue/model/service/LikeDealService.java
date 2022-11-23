@@ -3,6 +3,7 @@ package com.ssafy.vue.model.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.ssafy.vue.model.HouseDealDto;
 import com.ssafy.vue.model.LikeDealDto;
 import com.ssafy.vue.model.RegisterLikeDealParameterDto;
 

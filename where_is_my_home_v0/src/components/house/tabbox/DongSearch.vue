@@ -30,6 +30,7 @@
 import http from "@/api/http.js";
 export default {
   name: "DongSearch",
+  props: ["selected"],
   data() {
     return {
       sido: [],
@@ -54,7 +55,7 @@ export default {
       .then(({ data }) => this.dong = data);
     },
     onDongChange() {
-      http.get(`/house-deals?dongName=${this.selectDong}`)
+      http.get(`/house-deals?dongName=${this.selectDong}&selected=${this.selected}`)
       .then(({ data }) => {
         if (data.length == 0) {
           alert("해당 동에 매물이 없습니다!");
@@ -63,7 +64,14 @@ export default {
         }
       });
     }
-  }
+  },
+  watch: {
+    selected() {
+      if (this.selectDong != "") {
+        this.onDongChange();
+      }
+    }
+  },
 }
 </script>
 <style scoped>

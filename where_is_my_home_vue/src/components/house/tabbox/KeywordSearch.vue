@@ -9,6 +9,7 @@ import http from "@/api/http.js";
 
 export default {
   name: "KeywordSearch",
+  props: ["selected"],
   data() {
     return {
       keyword: "",
@@ -17,7 +18,7 @@ export default {
   methods: {
     searchKeyword() {
       if (this.keyword !== "") {
-        http.get(`/house-deals?aptName=${this.keyword}`)
+        http.get(`/house-deals?aptName=${this.keyword}&selected=${this.selected}`)
         .then(({ data }) => {
           this.$emit("searched-houses", data);
         });
@@ -25,7 +26,14 @@ export default {
         console.log("null keyword!");
       }
     }
-  }
+  },
+  watch: {
+    selected() {
+      if (this.keyword != "") {
+        this.searchKeyword();
+      }
+    }
+  },
 }
 </script>
 <style scoped>

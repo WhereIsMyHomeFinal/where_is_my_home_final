@@ -22,4 +22,5 @@ public interface HouseDealMapper {
 	
 	List<HouseDealDto> getDongInGugun(String gugun);
 	
+	List<HouseDealDto> getScores(List<HouseDealDto> houseDeals);
 }

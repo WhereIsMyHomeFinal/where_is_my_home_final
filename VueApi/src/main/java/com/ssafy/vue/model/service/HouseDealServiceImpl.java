@@ -47,4 +47,9 @@ public class HouseDealServiceImpl implements HouseDealService {
 	public List<HouseDealDto> getDongInGugun(String gugun) {
 		return houseDealDAO.getDongInGugun(gugun);
 	}
+
+	@Override
+	public List<HouseDealDto> getScores(List<HouseDealDto> houseDeals) {
+		return houseDealDAO.getScores(houseDeals);
+	}
 }
