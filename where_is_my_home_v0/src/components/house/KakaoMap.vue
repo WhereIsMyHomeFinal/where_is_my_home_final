@@ -400,7 +400,7 @@ export default {
         this.dealInfo = data;
       });
       http.get(`/reviews/${aptCode}`).then(({ data }) => {
-        console.log(data);
+        console.log(data.recommendScore, data.trafficScore, data.livingScore, data.surroundScore);
         this.reviewList = data;
         this.reviewList.forEach((review) => {
           this.sum_recommend += review.recommendScore;
