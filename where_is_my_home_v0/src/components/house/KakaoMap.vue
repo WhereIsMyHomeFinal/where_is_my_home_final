@@ -58,9 +58,13 @@
           </div>
         </div>
         <div class="px-3 bg-white" v-for="(apt, index) in aptlist" :key="index">
-          <div id="placesList" class="border-bottom py-3" @click="showHouseDetail(index)" 
+          <div id="placesList" class="d-flex border-bottom py-3" @click="showHouseDetail(index)" 
             @mouseover="displayMouseInfo(index)" @mouseout="closeMouseInfo()">
-            <div>{{ apt.aptName }}</div>
+            <div class="col-md-6 text-info">{{ apt.aptName }}</div>
+            <div>
+              <div>{{apt.dongName}}</div><br/>
+              <div>평균 매매 가격 {{ apt.dealAmount }}</div>
+            </div>
           </div>
         </div>
       </div>
