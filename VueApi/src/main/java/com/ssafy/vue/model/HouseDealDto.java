@@ -12,6 +12,7 @@ public class HouseDealDto {
 	private String lat;
 	private String lng;
 	private boolean isLiked;
+	private float avgRecommend, avgTraffic, avgLiving, avgSurround;
 	
 //	public HouseDeal(int no, int aptCode, String aptName, String dealAmount, String area, String dongName, String floor, int buildYear,
 //			String lat, String lng) {
@@ -30,6 +31,38 @@ public class HouseDealDto {
 	
 	public boolean isLiked() {
 		return isLiked;
+	}
+
+	public float getAvgRecommend() {
+		return avgRecommend;
+	}
+
+	public void setAvgRecommend(float avgRecommend) {
+		this.avgRecommend = avgRecommend;
+	}
+
+	public float getAvgTraffic() {
+		return avgTraffic;
+	}
+
+	public void setAvgTraffic(float avgTraffic) {
+		this.avgTraffic = avgTraffic;
+	}
+
+	public float getAvgLiving() {
+		return avgLiving;
+	}
+
+	public void setAvgLiving(float avgLiving) {
+		this.avgLiving = avgLiving;
+	}
+
+	public float getAvgSurround() {
+		return avgSurround;
+	}
+
+	public void setAvgSurround(float avgSurround) {
+		this.avgSurround = avgSurround;
 	}
 
 	public void setLiked(boolean isLiked) {

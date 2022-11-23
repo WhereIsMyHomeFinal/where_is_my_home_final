@@ -1,6 +1,3 @@
-<script setup>
-// import vueMkHeader from "@/assets/main_02.png";
-</script>
 <template>
   <div id="hero-slider">
     <div id="logo" class="mask">
