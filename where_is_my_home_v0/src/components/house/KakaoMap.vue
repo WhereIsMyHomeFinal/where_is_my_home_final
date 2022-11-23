@@ -59,7 +59,7 @@
         </div>
         <div class="px-3 bg-white" v-for="(apt, index) in aptlist" :key="index">
           <div id="placesList" class="border-bottom py-3" @click="showHouseDetail(index)" 
-            @mouseover="displayMouseInfo(index)">
+            @mouseover="displayMouseInfo(index)" @mouseout="closeMouseInfo()">
             <div>{{ apt.aptName }}</div>
           </div>
         </div>
@@ -617,8 +617,14 @@ export default {
       }
     },
     displayMouseInfo(index) {
-      console.log("index: " + index);
-    }
+      this.infowindow = new kakao.maps.InfoWindow({zIndex:1});
+      var content = '<div style="padding:5px;z-index:1;">' + this.aptlist[index].aptName + '</div>';
+      this.infowindow.setContent(content);
+      this.infowindow.open(this.map, this.markers[index]);
+    },
+    closeMouseInfo() {
+      this.infowindow.close();
+    },
   },
   mounted() {
     console.log("mounted");

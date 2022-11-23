@@ -21,8 +21,8 @@
 		) as a 
 		<where>
 			a.rn &lt;= 1 
-			<if test="aptName != '' and aptName != null">aptName like concat('%', #{aptName}, '%')</if>
-			<if test="dongName != '' and dongName != null">and dongName like #{dongName}</if>	<!-- 첫번째 if가 실행안되면 and 자동으로 날려줌!! -->
+			<if test="aptName != '' and aptName != null">and aptName like concat('%', #{aptName}, '%')</if>
+			<if test="dongName != '' and dongName != null">and dongName like #{dongName}</if>	<!-- 첫번째 if가 실행 안되면 and 자동으로 날려줌!! -->
 		</where>
 		order by dealAmount desc <!--  limit 9 -->
 	</select>
