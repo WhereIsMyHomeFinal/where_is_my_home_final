@@ -30,7 +30,7 @@
       </ul>
     </div>
     <div>
-      <b-form-group id="radiobox" class="card" v-slot="{ ariaDescribedby }">
+      <!-- <b-form-group id="radiobox" class="card" v-slot="{ ariaDescribedby }"> -->
         <b-form-radio-group
           id="radiobox"
           v-model="selected"
@@ -38,7 +38,7 @@
           :aria-describedby="ariaDescribedby"
           name="radios-btn-default"
         ></b-form-radio-group>
-      </b-form-group>
+      <!-- </b-form-group> -->
     </div>
     <div id="searchBox" class="card">
       <b-tabs content-class="mt-3">
@@ -647,8 +647,8 @@ export default {
 }
 #radiobox {
   position: absolute;
-  top: 43px;
-  left: 160px;
+  top: 285px;
+  left: 10px;
   width: 495px;
   font-size: 20px;
   border-radius: 10px;
@@ -674,7 +674,7 @@ export default {
 }
 #showList {
   position: absolute;
-  top: 287px;
+  top: 340px;
   bottom: 10px;
   left: 10px;
   /* right: 1505px; */
