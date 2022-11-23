@@ -11,12 +11,16 @@
 		where d.no = #{dealIdx}
 	</select>
 	
+	
 	<!-- 주택매매정보목록 조회 -->
 	<select id="selectHouseDeals" resultType="HouseDealDto" parameterType="HouseDealDto">
-		select d.no, d.aptCode, i.aptName, d.dealAmount, d.area, i.dongName, d.floor, i.buildYear,
-		i.lat, i.lng
-		from housedeal d join houseinfo i on d.aptCode = i.aptCode
+
+		select * from (select *, row_number() over (partition by aptCode) as rn
+		from (select * from housedeal d right join houseinfo i
+			using (aptCode)) as t
+		) as a 
 		<where>
+			a.rn &lt;= 1 
 			<if test="aptName != '' and aptName != null">aptName like concat('%', #{aptName}, '%')</if>
 			<if test="dongName != '' and dongName != null">and dongName like #{dongName}</if>	<!-- 첫번째 if가 실행안되면 and 자동으로 날려줌!! -->
 		</where>
