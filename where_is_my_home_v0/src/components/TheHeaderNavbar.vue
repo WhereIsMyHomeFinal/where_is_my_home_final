@@ -19,14 +19,14 @@
             <router-link :to="{ name: 'insta' }" class="m-2 link">
               <b-icon icon="instagram" animation="fade" font-scale="2"></b-icon>
               인스타그램
-            </router-link>
-            <router-link :to="{ name: 'board' }" class="m-2 link">
-              <b-icon icon="journal" animation="fade" font-scale="2"></b-icon>
-              게시판
             </router-link> -->
-            <router-link :to="{ name: 'house' }" class="m-2 link" >
+            <router-link :to="{ name: 'house' }" class="m-2 link">
               <!-- <b-icon icon="house-fill" animation="fade" font-scale="2"></b-icon> -->
               매물 검색
+            </router-link>
+            <router-link :to="{ name: 'board' }" class="m-2 link">
+              <!-- <b-icon icon="journal" animation="fade" font-scale="2"></b-icon> -->
+              게시판
             </router-link>
             <!-- <router-link :to="{ name: 'todo' }" class="link">
               <b-icon icon="calendar-check" animation="fade" font-scale="2"></b-icon>
@@ -109,12 +109,23 @@ export default {
 
 .link {
   text-decoration: none;
-  color: #17a2b8;
+  /* color: #17a2b8; */
+  color: black;
 }
 
 .link:hover {
   text-decoration: none;
-  color: #6E8A8E;
+  color: #6e8a8e;
 }
 
+/* li:hover a, */
+li.router-link-active a,
+li.router-link-exact-active a {
+  color: #17a2b8;
+  cursor: pointer;
+}
+
+/* li a {
+  color: #17a2b8;
+} */
 </style>
