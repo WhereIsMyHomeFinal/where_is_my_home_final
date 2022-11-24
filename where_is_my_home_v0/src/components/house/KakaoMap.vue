@@ -66,11 +66,14 @@
             @mouseover="displayMouseInfo(index)"
             @mouseout="closeMouseInfo()"
           >
-            <div class="col-md-6 text-info">{{ apt.aptName }}</div>
-            <div>
-              <div>{{ apt.dongName }}</div>
-              <br />
-              <div>평균 매매 가격 {{ apt.dealAmount }}</div>
+            <div class="col-md-5" style="background-color: rgba(23, 162, 184, 0.3);">
+              <div class="text-info">{{ apt.aptName }}</div>
+              <div>★ {{ apt[`${selected}`] }}/5</div>
+            </div>
+            <div class="col-md-7">
+              <div><small><strong>{{ apt.dongName }}</strong></small></div>
+              <!-- <br /> -->
+              <div><small><strong>평균 매매 가격 {{ apt.dealAmount }} 만원</strong></small></div>
             </div>
           </div>
         </div>
@@ -308,6 +311,9 @@ export default {
   },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+    point(){
+      
+    }
   },
   data() {
     return {
@@ -322,12 +328,12 @@ export default {
       sum_traffic: 0.0,
       sum_living: 0.0,
       sum_surround: 0.0,
-      selected: "recommend",
+      selected: "avgRecommend",
       options: [
-        { value: "recommend", text: "추천점수" },
-        { value: "traffic", text: "교통요건" },
-        { value: "living", text: "거주환경" },
-        { value: "surround", text: "주변환경" },
+        { value: "avgRecommend", text: "추천점수" },
+        { value: "avgTraffic", text: "교통요건" },
+        { value: "avgLiving", text: "거주환경" },
+        { value: "avgSurround", text: "주변환경" },
       ],
       infowindow: {},
     };
@@ -359,7 +365,7 @@ export default {
       this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     },
     addMarkers(aptlist) {
-      this.selected = 'recommend';
+      this.selected = 'avgRecommend';
       this.curIndex = -1;
       console.log("addmarkers");
       // this.initMap();
@@ -658,18 +664,8 @@ export default {
   },
   watch: {
     selected() {
-      if (this.selected === "recommend")
-        this.aptlist = this.aptlist.sort((a, b) => 
-          b.avgRecommend - a.avgRecommend);
-      else if (this.selected === "traffic")
-        this.aptlist = this.aptlist.sort((a, b) => 
-          b.avgTraffic - a.avgTraffic);
-      else if (this.selected === "living")
-        this.aptlist = this.aptlist.sort((a, b) => 
-          b.avgLiving - a.avgLiving);
-      else if (this.selected === "surround")
-        this.aptlist = this.aptlist.sort((a, b) => 
-          b.avgSurround - a.avgSurround);
+      this.aptlist = this.aptlist.sort((a, b) =>
+        b[`${this.selected}`] - a[`${this.selected}`]);
     }
   },
 };
