@@ -19,7 +19,6 @@
 		where d.no = #{dealIdx}
 	</select>
 	
-	
 	<!-- 주택매매정보목록 조회 -->
 	<select id="selectHouseDeals" resultType="HouseDealDto" parameterType="HouseDealDto">
 		select * from (select *, row_number() over (partition by aptCode) as rn
