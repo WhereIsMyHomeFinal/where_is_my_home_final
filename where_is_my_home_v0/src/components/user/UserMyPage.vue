@@ -149,6 +149,8 @@ h1 {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
   position: relative;
+  overflow-y: scroll;
+  max-height: 740px;
 }
 .card {
   display: flex;
