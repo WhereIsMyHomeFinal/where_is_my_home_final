@@ -145,7 +145,7 @@
                 </div>
                 <div class="border-bottom py-2">
                   <div class="w-20 text-secondary">교통요건</div>
-                  <div>{{ sum_traffic }}</div>
+                  <div>{{ Math.round(sum_traffic) }}</div>
                   <div>
                     <StarRating
                       v-model="sum_traffic"
@@ -159,7 +159,7 @@
                 </div>
                 <div class="border-bottom py-2">
                   <div class="w-20 text-secondary">거주환경</div>
-                  <div>{{ sum_living }}</div>
+                  <div>{{ Math.round(sum_living) }}</div>
                   <div>
                     <StarRating
                       v-model="sum_living"
@@ -173,7 +173,7 @@
                 </div>
                 <div class="border-bottom py-2">
                   <div class="w-20 text-secondary">주변환경</div>
-                  <div>{{ sum_surround }}</div>
+                  <div>{{ Math.round(sum_surround) }}</div>
                   <div>
                     <StarRating
                       v-model="sum_surround"
