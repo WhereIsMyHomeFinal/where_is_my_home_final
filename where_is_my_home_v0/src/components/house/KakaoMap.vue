@@ -70,7 +70,7 @@
           >
             <div class="col-md-5" style="background-color: rgba(23, 162, 184, 0.3)">
               <div class="text-info">{{ apt.aptName }}</div>
-              <div>★ {{ apt[`${selected}`] }}/5</div>
+              <div>★ {{ Math.round(apt[`${selected}`] * 10) / 10 }}/5</div>
             </div>
             <div class="col-md-7">
               <div>
@@ -130,7 +130,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="border-bottom py-2 text-danger">
                   <div class="w-20">추천점수</div>
-                  <div>{{ sum_recommend }}</div>
+                  <div>{{ Math.round(sum_recommend * 10) / 10 }}</div>
                   <div>
                     <StarRating
                       v-model="sum_recommend"
@@ -145,7 +145,7 @@
                 </div>
                 <div class="border-bottom py-2">
                   <div class="w-20 text-secondary">교통요건</div>
-                  <div>{{ Math.round(sum_traffic) }}</div>
+                  <div>{{ Math.round(sum_traffic * 10) / 10 }}</div>
                   <div>
                     <StarRating
                       v-model="sum_traffic"
@@ -159,7 +159,7 @@
                 </div>
                 <div class="border-bottom py-2">
                   <div class="w-20 text-secondary">거주환경</div>
-                  <div>{{ Math.round(sum_living) }}</div>
+                  <div>{{ Math.round(sum_living * 10) / 10 }}</div>
                   <div>
                     <StarRating
                       v-model="sum_living"
@@ -173,7 +173,7 @@
                 </div>
                 <div class="border-bottom py-2">
                   <div class="w-20 text-secondary">주변환경</div>
-                  <div>{{ Math.round(sum_surround) }}</div>
+                  <div>{{ Math.round(sum_surround * 10) / 10 }}</div>
                   <div>
                     <StarRating
                       v-model="sum_surround"

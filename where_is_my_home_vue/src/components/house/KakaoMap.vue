@@ -31,21 +31,25 @@
     </div>
     <div>
       <b-form-group id="radiobox" class="card" v-slot="{ ariaDescribedby }">
+        <h4 style="color: #5e72e4">정렬 기준을 선택해보세요!</h4>
+
         <b-form-radio-group
           v-model="selected"
           :options="options"
           :aria-describedby="ariaDescribedby"
           name="radios-btn-default"
+          buttons
+          button-variant="outline-primary"
         ></b-form-radio-group>
       </b-form-group>
     </div>
     <div id="searchBox" class="card">
       <b-tabs content-class="mt-3">
         <b-tab title="동 검색" active>
-          <dong-search :selected="selected" @searched-houses="addMarkers" />
+          <dong-search :selected="selected" @searched-houses="displayList" />
         </b-tab>
         <b-tab title="키워드 검색">
-          <keyword-search :selected="selected" @searched-houses="addMarkers" />
+          <keyword-search :selected="selected" @searched-houses="displayList" />
         </b-tab>
       </b-tabs>
     </div>
@@ -57,12 +61,28 @@
           </div>
         </div>
         <div class="px-3 bg-white" v-for="(apt, index) in aptlist" :key="index">
-          <div id="placesList" class="d-flex border-bottom py-3" @click="showHouseDetail(index)" 
-            @mouseover="displayMouseInfo(index)" @mouseout="closeMouseInfo()">
-            <div class="col-md-6 text-info">{{ apt.aptName }}</div>
-            <div>
-              <div>{{apt.dongName}}</div><br/>
-              <div>평균 매매 가격 {{ apt.dealAmount }}</div>
+          <div
+            id="placesList"
+            class="d-flex border-bottom py-3"
+            @click="showHouseDetail(index)"
+            @mouseover="displayMouseInfo(index)"
+            @mouseout="closeMouseInfo()"
+          >
+            <div class="col-md-5" style="background-color: rgba(23, 162, 184, 0.3)">
+              <div class="text-info">{{ apt.aptName }}</div>
+              <div>★ {{ Math.round(apt[`${selected}`] * 10) / 10 }}/5</div>
+            </div>
+            <div class="col-md-7">
+              <div>
+                <small
+                  ><strong>{{ apt.dongName }}</strong></small
+                >
+              </div>
+              <div>
+                <small
+                  ><strong>평균 매매 가격 {{ apt.dealAmount }} 만원</strong></small
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -71,211 +91,184 @@
         <div class="bg-white p-3 border-bottom d-flex justify-content-between align-items-center">
           <h4 class="m-0">{{ aptlist[curIndex].aptName }}</h4>
           <HeartBtn class="px-1" :enabled="aptlist[curIndex].liked" @changeHeartBtn="onLikedHouse" />
-          <b-icon icon="arrow-left" scale="1" variant="secondary" @click="curIndex = -1;"></b-icon>
+          <b-icon icon="arrow-left" scale="1" variant="secondary" @click="curIndex = -1"></b-icon>
         </div>
-          <b-tabs content-class="mt-3">
-            <b-tab title="기본 정보" active>
-              <div id="roadview" style="width: 100%; height: 300px"></div>
-              <!-- contents -->
-              <div class="px-3">
-                <div class="border-bottom d-flex py-2">
-                  <div class="text-secondary w-25">주소</div>
-                  <div>{{ aptlist[curIndex].dongName }}</div>
+        <b-tabs content-class="mt-3">
+          <b-tab title="기본 정보" active>
+            <div id="roadview" style="width: 100%; height: 300px"></div>
+            <!-- contents -->
+            <div class="px-3">
+              <div class="border-bottom d-flex py-2">
+                <div class="text-secondary w-25">주소</div>
+                <div>{{ aptlist[curIndex].dongName }}</div>
+              </div>
+              <div class="d-flex py-2">
+                <div class="text-secondary w-25">건축년도</div>
+                <div>{{ aptlist[curIndex].buildYear }}</div>
+              </div>
+              <div class="d-flex py-2">
+                <div class="text-secondary w-25">거래가격</div>
+                <div>{{ dealInfo.dealAmount }}</div>
+              </div>
+              <div class="d-flex py-2">
+                <div class="text-secondary w-25">면적</div>
+                <div>{{ dealInfo.area }}</div>
+              </div>
+              <div class="d-flex py-2">
+                <div class="text-secondary w-25">층수</div>
+                <div>{{ dealInfo.floor }}</div>
+              </div>
+            </div>
+          </b-tab>
+          <b-tab title="리뷰">
+            <!-- 거주민 리뷰 -->
+            <div class="bg-white mb-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <h4 class="p-3 m-0">리뷰 총점</h4>
+                <!-- <i v-if="isAuth&&level==2" @click="showReviewInsertModal" class="bi bi-plus-circle px-3 cursor-pointer"></i> -->
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="border-bottom py-2 text-danger">
+                  <div class="w-20">추천점수</div>
+                  <div>{{ Math.round(sum_recommend * 10) / 10 }}</div>
+                  <div>
+                    <StarRating
+                      v-model="sum_recommend"
+                      active-color="#dc3545"
+                      :read-only="true"
+                      :show-rating="false"
+                      :rounded-corners="true"
+                      :star-size="10"
+                      :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
+                    ></StarRating>
+                  </div>
                 </div>
-                <div class="d-flex py-2">
-                  <div class="text-secondary w-25">건축년도</div>
-                  <div>{{ aptlist[curIndex].buildYear }}</div>
+                <div class="border-bottom py-2">
+                  <div class="w-20 text-secondary">교통요건</div>
+                  <div>{{ Math.round(sum_traffic * 10) / 10 }}</div>
+                  <div>
+                    <StarRating
+                      v-model="sum_traffic"
+                      :read-only="true"
+                      :show-rating="false"
+                      :rounded-corners="true"
+                      :star-size="10"
+                      :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
+                    ></StarRating>
+                  </div>
                 </div>
-                <div class="d-flex py-2">
-                  <div class="text-secondary w-25">거래가격</div>
-                  <div>{{ dealInfo.dealAmount }}</div>
+                <div class="border-bottom py-2">
+                  <div class="w-20 text-secondary">거주환경</div>
+                  <div>{{ Math.round(sum_living * 10) / 10 }}</div>
+                  <div>
+                    <StarRating
+                      v-model="sum_living"
+                      :read-only="true"
+                      :show-rating="false"
+                      :rounded-corners="true"
+                      :star-size="10"
+                      :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
+                    ></StarRating>
+                  </div>
                 </div>
-                <div class="d-flex py-2">
-                  <div class="text-secondary w-25">면적</div>
-                  <div>{{ dealInfo.area }}</div>
-                </div>
-                <div class="d-flex py-2">
-                  <div class="text-secondary w-25">층수</div>
-                  <div>{{ dealInfo.floor }}</div>
+                <div class="border-bottom py-2">
+                  <div class="w-20 text-secondary">주변환경</div>
+                  <div>{{ Math.round(sum_surround * 10) / 10 }}</div>
+                  <div>
+                    <StarRating
+                      v-model="sum_surround"
+                      :read-only="true"
+                      :show-rating="false"
+                      :rounded-corners="true"
+                      :star-size="10"
+                      :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
+                    ></StarRating>
+                  </div>
                 </div>
               </div>
-            </b-tab>
-            <b-tab title="리뷰">
-              <!-- 거주민 리뷰 -->
-              <div class="bg-white mb-2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <h4 class="p-3 m-0">리뷰 총점</h4>
-                  <!-- <i v-if="isAuth&&level==2" @click="showReviewInsertModal" class="bi bi-plus-circle px-3 cursor-pointer"></i> -->
+              <div class="d-flex justify-content-between align-items-center">
+                <h4 class="p-3 m-0">거주민 리뷰</h4>
+                <!-- <i v-if="isAuth&&level==2" @click="showReviewInsertModal" class="bi bi-plus-circle px-3 cursor-pointer"></i> -->
+              </div>
+              <div v-if="reviewList.length == 0" class="p-3 border-top">
+                <div>등록된 리뷰가 없습니다.</div>
+              </div>
+              <!-- 등록 리뷰 있을 때 v-for 속성 추가-->
+              <div v-else v-for="(review, index) in reviewList" :key="index">
+                <div class="border-top border-bottom d-flex align-items-center p-2">
+                  <div class="text-secondary ps-2 pe-3">
+                    <!-- <img v-if="review.userProfileImage" class="avatar rounded-circle" width=25px :src="review.userProfileImage"> -->
+                    <!-- <img v-else class="avatar rounded-circle" width=25px src="../assets/images/profile_av.png"> -->
+                  </div>
+                  <div class="d-flex flex-column">
+                    <h5 class="m-0">{{ review.userName }}</h5>
+                    <div class="text-secondary" style="font-size: 0.9rem">{{ review.registDate }} 가입</div>
+                  </div>
                 </div>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="border-bottom py-2 text-danger">
-                    <div class="w-20">추천점수</div>
-                    <div>{{sum_recommend}}</div>
+                <div class="px-3">
+                  <div class="border-bottom d-flex py-2 text-danger">
+                    <div class="w-25">추천점수</div>
                     <div>
                       <StarRating
-                        v-model="sum_recommend"
+                        v-model="review.recommendScore"
                         active-color="#dc3545"
                         :read-only="true"
                         :show-rating="false"
                         :rounded-corners="true"
-                        :star-size="10"
+                        :star-size="20"
                         :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
                       ></StarRating>
                     </div>
                   </div>
-                  <div class="border-bottom py-2">
-                    <div class="w-20 text-secondary">교통요건</div>
-                    <div>{{sum_traffic}}</div>
+                  <div class="border-bottom d-flex py-2">
+                    <div class="text-secondary w-25">교통요건</div>
                     <div>
                       <StarRating
-                        v-model="sum_traffic"
+                        v-model="review.trafficScore"
                         :read-only="true"
                         :show-rating="false"
                         :rounded-corners="true"
-                        :star-size="10"
+                        :star-size="20"
                         :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
                       ></StarRating>
                     </div>
                   </div>
-                  <div class="border-bottom py-2">
-                    <div class="w-20 text-secondary">거주환경</div>
-                    <div>{{sum_living}}</div>
+                  <div class="border-bottom d-flex py-2">
+                    <div class="text-secondary w-25">거주환경</div>
                     <div>
                       <StarRating
-                        v-model="sum_living"
+                        v-model="review.livingScore"
                         :read-only="true"
                         :show-rating="false"
                         :rounded-corners="true"
-                        :star-size="10"
+                        :star-size="20"
                         :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
                       ></StarRating>
                     </div>
                   </div>
-                  <div class="border-bottom py-2">
-                    <div class="w-20 text-secondary">주변환경</div>
-                    <div>{{sum_surround}}</div>
+                  <div class="border-bottom d-flex py-2">
+                    <div class="text-secondary w-25">주변환경</div>
                     <div>
                       <StarRating
-                        v-model="sum_surround"
+                        v-model="review.surroundScore"
                         :read-only="true"
                         :show-rating="false"
                         :rounded-corners="true"
-                        :star-size="10"
+                        :star-size="20"
                         :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
                       ></StarRating>
                     </div>
                   </div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                  <h4 class="p-3 m-0">거주민 리뷰</h4>
-                  <!-- <i v-if="isAuth&&level==2" @click="showReviewInsertModal" class="bi bi-plus-circle px-3 cursor-pointer"></i> -->
-                </div>
-                <div v-if="reviewList.length == 0" class="p-3 border-top">
-                  <div>등록된 리뷰가 없습니다.</div>
-                </div>
-                <!-- 등록 리뷰 있을 때 v-for 속성 추가-->
-                <div v-else v-for="(review, index) in reviewList" :key="index">
-                  <div class="border-top border-bottom d-flex align-items-center p-2">
-                    <div class="text-secondary ps-2 pe-3">
-                      <!-- <img v-if="review.userProfileImage" class="avatar rounded-circle" width=25px :src="review.userProfileImage"> -->
-                      <!-- <img v-else class="avatar rounded-circle" width=25px src="../assets/images/profile_av.png"> -->
-                    </div>
-                    <div class="d-flex flex-column">
-                      <h5 class="m-0">{{ review.userName }}</h5>
-                      <div class="text-secondary" style="font-size: 0.9rem">{{ review.registDate }} 가입</div>
-                    </div>
-                  </div>
-                  <div class="px-3">
-                    <div class="border-bottom d-flex py-2 text-danger">
-                      <div class="w-25">추천점수</div>
-                      <div>
-                        <StarRating
-                          v-model="review.recommendScore"
-                          active-color="#dc3545"
-                          :read-only="true"
-                          :show-rating="false"
-                          :rounded-corners="true"
-                          :star-size="20"
-                          :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
-                        ></StarRating>
-                      </div>
-                    </div>
-                    <div class="border-bottom d-flex py-2">
-                      <div class="text-secondary w-25">교통요건</div>
-                      <div>
-                        <StarRating
-                          v-model="review.trafficScore"
-                          :read-only="true"
-                          :show-rating="false"
-                          :rounded-corners="true"
-                          :star-size="20"
-                          :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
-                        ></StarRating>
-                      </div>
-                    </div>
-                    <div class="border-bottom d-flex py-2">
-                      <div class="text-secondary w-25">거주환경</div>
-                      <div>
-                        <StarRating
-                          v-model="review.livingScore"
-                          :read-only="true"
-                          :show-rating="false"
-                          :rounded-corners="true"
-                          :star-size="20"
-                          :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
-                        ></StarRating>
-                      </div>
-                    </div>
-                    <div class="border-bottom d-flex py-2">
-                      <div class="text-secondary w-25">주변환경</div>
-                      <div>
-                        <StarRating
-                          v-model="review.surroundScore"
-                          :read-only="true"
-                          :show-rating="false"
-                          :rounded-corners="true"
-                          :star-size="20"
-                          :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
-                        ></StarRating>
-                      </div>
-                    </div>
-                    <div class="pt-2 text-secondary">종합의견</div>
-                    <div class="py-2">
-                      <h5>{{ review.comment }}</h5>
-                    </div>
+                  <div class="pt-2 text-secondary">종합의견</div>
+                  <div class="py-2">
+                    <h5>{{ review.comment }}</h5>
                   </div>
                 </div>
               </div>
-            </b-tab>
-          </b-tabs>
+            </div>
+          </b-tab>
+        </b-tabs>
       </div>
-      <!-- 매물정보 -->
-      <!-- <div class="bg-white mb-2">
-        <div class="border-bottom"><h5 class="p-3 m-0">매물 정보</h5></div>
-        <div>
-          <table class="w-100">
-            <thead class="bg-secondary text-white">
-              <tr>
-                <td class="ps-3 py-1">타입</td>
-                <td class="w-50">제목</td>
-                <td>거래가격</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody class="px-2">
-              <tr v-if="ongoingList.length==0" class="border-bottom">
-                <td colspan="3" class="ps-3 py-2">등록된 매물이 없습니다.</td>
-              </tr>
-              <tr v-else v-for="(item, index) in ongoingList" :key="index" class="border-bottom">
-                <td class="ps-3 py-2">{{ item.type }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.dealAmount }}</td>
-                <td><HeartBtn :enabled="item.bookmark" :index="index" @changeHeartBtn="onBookmarkOngoing" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -284,9 +277,9 @@ import http from "@/api/http.js";
 import DongSearch from "@/components/house/tabbox/DongSearch.vue";
 import KeywordSearch from "@/components/house/tabbox/KeywordSearch.vue";
 import StarRating from "vue-star-rating";
-import { nextTick } from 'vue'
+import { nextTick } from "vue";
 import HeartBtn from "@/components/icon/HeartBtn.vue";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 const memberStore = "memberStore";
 
@@ -309,22 +302,26 @@ export default {
       markers: [],
       reviewList: [],
       currCategory: "",
-      curIndex : -1,
+      curIndex: -1,
       sum_recommend: 0.0,
       sum_traffic: 0.0,
       sum_living: 0.0,
       sum_surround: 0.0,
-      selected: "recommend",
+      selected: "avgRecommend",
       options: [
-        { value: "recommend", text: "추천점수"},
-        { value: "traffic", text: "교통요건"},
-        { value: "living", text: "거주환경"},
-        { value: "surround", text: "주변환경"},
+        { value: "avgRecommend", text: "추천점수" },
+        { value: "avgTraffic", text: "교통요건" },
+        { value: "avgLiving", text: "거주환경" },
+        { value: "avgSurround", text: "주변환경" },
       ],
       infowindow: {},
     };
   },
   methods: {
+    displayList(data) {
+      this.initMap();
+      this.addMarkers(data);
+    },
     initMap() {
       console.log("initmap");
       this.placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
@@ -344,9 +341,10 @@ export default {
       this.addEventHandle(this.contentNode, "touchstart", kakao.maps.event.preventMap);
       this.placeOverlay.setContent(this.contentNode);
       this.addCategoryClickEvent();
-      this.infowindow = new kakao.maps.InfoWindow({zIndex:1});
+      this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     },
     addMarkers(aptlist) {
+      this.selected = "avgRecommend";
       this.curIndex = -1;
       console.log("addmarkers");
       // this.initMap();
@@ -370,8 +368,14 @@ export default {
     },
     addMarkerByOne(markerPosition, index) {
       console.log("addmarkerbyone");
+      //
+      var imageSrc = "https://bit.ly/3U1TWG7", // 마커이미지의 주소입니다
+        imageSize = new kakao.maps.Size(64, 64), // 마커이미지의 크기입니다
+        imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+      var markerByOneImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
       let marker = new kakao.maps.Marker({
         position: markerPosition,
+        image: markerByOneImage,
       });
       let $this = this;
       kakao.maps.event.addListener(marker, "click", function () {
@@ -590,38 +594,24 @@ export default {
     },
     onLikedHouse({ enabled }) {
       if (enabled) {
-        http.post(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
-        .then(() => {
-          this.aptlist[this.curIndex].liked = enabled;
-          // console.log(`enabled: ${enabled}, liked: ${this.aptlist[this.curIndex].liked}`);
-          // if (data.result == 'login') {
-          //   this.$swal('세션이 만료되었거나, 로그인되지 않았습니다. 로그인 페이지로 이동합니다.', { icon: 'warning' })
-          //     .then(() => {
-          //       this.SET_USER_LOGOUT();
-          //       this.$router.push('/user/login');
-          //     })
-          // }
-        }) 
-        .catch(() => this.$swal('서버에 문제가 발생하였습니다.', { icon: 'error' }))
+        http
+          .post(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
+          .then(() => {
+            this.aptlist[this.curIndex].liked = enabled;
+          })
+          .catch(() => this.$swal("서버에 문제가 발생하였습니다.", { icon: "error" }));
       } else {
-        http.delete(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
-        .then(() => {
-          this.aptlist[this.curIndex].liked = enabled;
-          // console.log(`enabled: ${enabled}, liked: ${this.aptlist[this.curIndex].liked}`);
-            // if (data.result == 'login') {
-            //   this.$swal('세션이 만료되었거나, 로그인되지 않았습니다. 로그인 페이지로 이동합니다.', { icon: 'warning' })
-            //     .then(() => {
-            //       this.SET_USER_LOGOUT();
-            //       this.$router.push('/user/login');
-            //     })
-            // }
-        })
-        .catch(() => this.$swal('서버에 문제가 발생하였습니다.', { icon: 'error' }))
+        http
+          .delete(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
+          .then(() => {
+            this.aptlist[this.curIndex].liked = enabled;
+          })
+          .catch(() => this.$swal("서버에 문제가 발생하였습니다.", { icon: "error" }));
       }
     },
     displayMouseInfo(index) {
-      this.infowindow = new kakao.maps.InfoWindow({zIndex:1});
-      var content = '<div style="padding:5px;z-index:1;">' + this.aptlist[index].aptName + '</div>';
+      this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+      var content = '<div style="padding:5px;z-index:1;">' + this.aptlist[index].aptName + "</div>";
       this.infowindow.setContent(content);
       this.infowindow.open(this.map, this.markers[index]);
     },
@@ -641,51 +631,52 @@ export default {
       document.head.appendChild(script);
     }
   },
+  watch: {
+    selected() {
+      this.aptlist = this.aptlist.sort((a, b) => b[`${this.selected}`] - a[`${this.selected}`]);
+    },
+  },
 };
 </script>
 <style scoped>
+.btn-outline-primary {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 #map {
   width: 100%;
-  height: 91vh;
+  height: 93vh;
 }
 #radiobox {
   position: absolute;
-  top: 285px;
+  top: 275px;
   left: 10px;
-  width: 495px;
+  width: 400px;
   font-size: 20px;
   border-radius: 10px;
-  /* line-height: 2rem; */
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.7);
   z-index: 1;
-  /* overflow-y: auto; */
 }
 #searchBox {
   position: absolute;
   top: 150px;
-  /* bottom : 10px; */
   left: 10px;
   width: 400px;
-  /* height: 400px; */
   padding: 10px;
   z-index: 100;
-  /* background-color:rgba(255, 244, 244, 0.8); */
-  /* opacity: 0.5; */
   background-color: rgba(255, 255, 255, 0.7);
   overflow-y: auto;
 }
 #showList {
   position: absolute;
-  top: 340px;
-  bottom: 10px;
+  top: 370px;
+  bottom: 20px;
   left: 10px;
-  /* right: 1505px; */
   width: 400px;
   padding: 10px;
   z-index: 100;
-  background-color:rgba(255, 255, 255, 0.7);
-  /* opacity: 0.5; */
+  background-color: rgba(255, 255, 255, 0.7);
   overflow-y: auto;
 }
 .text-secondary {
