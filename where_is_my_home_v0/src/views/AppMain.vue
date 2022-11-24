@@ -28,16 +28,16 @@
       </div>
       <div id="slides-aux" class="slides mask">
         <h2 class="slide-title slide" data-index="0">
-          <a class="slide-title-link" href="#">#64 Paradigm</a>
+          <a href="#">[News] “경기도 안 좋은데 큰집이 웬말”…초소형 아파트 거래비중 역대 최고</a>
         </h2>
         <h2 class="slide-title slide" data-index="1">
-          <a class="slide-title-link" href="#">Industrial Works</a>
+          <a href="#">[News] “전세대출 이자 내드릴테니 제발”...세입자 모시기 전쟁</a>
         </h2>
         <h2 class="slide-title slide" data-index="2">
-          <a class="slide-title-link" href="#">Future Lights</a>
+          <a href="#">[News] 알스퀘어·밸류맵, 내달 3일 '부동산 빅데이터쇼' 개최</a>
         </h2>
         <h2 class="slide-title slide" data-index="3">
-          <a class="slide-title-link" href="#">The Colossal</a>
+          <a href="#">[News] “내년 부동산 공시가격 현실화율 2020년 수준으로”</a>
         </h2>
       </div>
     </div>
@@ -338,5 +338,17 @@ export default {
 
 .slide-title-link {
   color: aliceblue;
+}
+
+a {
+  font-size: 1.8rem;
+  font-weight: 10;
+  font-style: italic;
+  color: aliceblue;
+  margin-left: 170px;
+}
+
+.slides {
+  margin-bottom: 15px;
 }
 </style>
