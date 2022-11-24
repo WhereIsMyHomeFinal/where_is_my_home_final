@@ -31,6 +31,8 @@
     </div>
     <div>
       <b-form-group id="radiobox" class="card" v-slot="{ ariaDescribedby }">
+        <h4 style="color: #5e72e4">정렬 기준을 선택해보세요!</h4>
+
         <b-form-radio-group
           v-model="selected"
           :options="options"
@@ -324,10 +326,10 @@ export default {
       sum_surround: 0.0,
       selected: "recommend",
       options: [
-        { value: "recommend", text: "추천점수" },
-        { value: "traffic", text: "교통요건" },
-        { value: "living", text: "거주환경" },
-        { value: "surround", text: "주변환경" },
+        { value: "recommend", text: "추천점수순" },
+        { value: "traffic", text: "교통요건순" },
+        { value: "living", text: "거주환경순" },
+        { value: "surround", text: "주변환경순" },
       ],
       infowindow: {},
     };
@@ -359,7 +361,7 @@ export default {
       this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     },
     addMarkers(aptlist) {
-      this.selected = 'recommend';
+      this.selected = "recommend";
       this.curIndex = -1;
       console.log("addmarkers");
       // this.initMap();
@@ -383,8 +385,14 @@ export default {
     },
     addMarkerByOne(markerPosition, index) {
       console.log("addmarkerbyone");
+      //
+      var imageSrc = "https://bit.ly/3U1TWG7", // 마커이미지의 주소입니다
+        imageSize = new kakao.maps.Size(64, 64), // 마커이미지의 크기입니다
+        imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+      var markerByOneImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
       let marker = new kakao.maps.Marker({
         position: markerPosition,
+        image: markerByOneImage,
       });
       let $this = this;
       kakao.maps.event.addListener(marker, "click", function () {
@@ -658,19 +666,11 @@ export default {
   },
   watch: {
     selected() {
-      if (this.selected === "recommend")
-        this.aptlist = this.aptlist.sort((a, b) => 
-          b.avgRecommend - a.avgRecommend);
-      else if (this.selected === "traffic")
-        this.aptlist = this.aptlist.sort((a, b) => 
-          b.avgTraffic - a.avgTraffic);
-      else if (this.selected === "living")
-        this.aptlist = this.aptlist.sort((a, b) => 
-          b.avgLiving - a.avgLiving);
-      else if (this.selected === "surround")
-        this.aptlist = this.aptlist.sort((a, b) => 
-          b.avgSurround - a.avgSurround);
-    }
+      if (this.selected === "recommend") this.aptlist = this.aptlist.sort((a, b) => b.avgRecommend - a.avgRecommend);
+      else if (this.selected === "traffic") this.aptlist = this.aptlist.sort((a, b) => b.avgTraffic - a.avgTraffic);
+      else if (this.selected === "living") this.aptlist = this.aptlist.sort((a, b) => b.avgLiving - a.avgLiving);
+      else if (this.selected === "surround") this.aptlist = this.aptlist.sort((a, b) => b.avgSurround - a.avgSurround);
+    },
   },
 };
 </script>
@@ -685,7 +685,7 @@ export default {
 }
 #radiobox {
   position: absolute;
-  top: 285px;
+  top: 275px;
   left: 10px;
   width: 400px;
   font-size: 20px;
@@ -712,7 +712,7 @@ export default {
 }
 #showList {
   position: absolute;
-  top: 340px;
+  top: 370px;
   bottom: 20px;
   left: 10px;
   /* right: 1505px; */
