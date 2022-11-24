@@ -150,7 +150,7 @@ h1 {
   grid-gap: 1rem;
   position: relative;
   overflow-y: scroll;
-  max-height: 740px;
+  max-height: 710px;
 }
 .card {
   display: flex;

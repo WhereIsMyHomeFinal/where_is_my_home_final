@@ -40,6 +40,7 @@
           name="radios-btn-default"
           buttons
           button-variant="outline-primary"
+          style="width: 370px;"
         ></b-form-radio-group>
       </b-form-group>
     </div>
@@ -68,7 +69,7 @@
             @mouseover="displayMouseInfo(index)"
             @mouseout="closeMouseInfo()"
           >
-            <div class="col-md-5" style="background-color: rgba(23, 162, 184, 0.3)">
+            <div class="col-md-5" style="border-right: 1px solid #17A2B8;">
               <div class="text-info">{{ apt.aptName }}</div>
               <div>★ {{ Math.round(apt[`${selected}`] * 10) / 10 }}/5</div>
             </div>
@@ -91,6 +92,7 @@
         <div class="bg-white p-3 border-bottom d-flex justify-content-between align-items-center">
           <h4 class="m-0">{{ aptlist[curIndex].aptName }}</h4>
           <HeartBtn class="px-1" :enabled="aptlist[curIndex].liked" @changeHeartBtn="onLikedHouse" />
+          <h4 style="width:170px"></h4>
           <b-icon icon="arrow-left" scale="1" variant="secondary" @click="curIndex = -1"></b-icon>
         </div>
         <b-tabs content-class="mt-3">
@@ -127,7 +129,7 @@
                 <h4 class="p-3 m-0">리뷰 총점</h4>
                 <!-- <i v-if="isAuth&&level==2" @click="showReviewInsertModal" class="bi bi-plus-circle px-3 cursor-pointer"></i> -->
               </div>
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center" style="margin-left:20px; margin-right:20px;">
                 <div class="border-bottom py-2 text-danger">
                   <div class="w-20">추천점수</div>
                   <div>{{ Math.round(sum_recommend * 10) / 10 }}</div>
@@ -206,8 +208,8 @@
                   </div>
                 </div>
                 <div class="px-3">
-                  <div class="border-bottom d-flex py-2 text-danger">
-                    <div class="w-25">추천점수</div>
+                  <div class="border-bottom d-flex py-2 text-red">
+                    <div class="text-red w-25">추천점수</div>
                     <div>
                       <StarRating
                         v-model="review.recommendScore"
@@ -686,6 +688,9 @@ export default {
   background-color: rgba(255, 255, 255, 0.7);
   /* opacity: 0.5; */
   overflow-y: auto;
+}
+.text-red{
+  color: #F5365C;
 }
 .text-secondary {
   color: gray;
