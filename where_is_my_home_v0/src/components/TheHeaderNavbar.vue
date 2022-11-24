@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="light" variant="light">
       <b-navbar-brand href="#">
-        <router-link :to="{ name: 'main' }" class="link">
+        <router-link :to="{ name: 'main' }" class="link title-link">
           <div class="item col-md-2 text-info"><h1>구해줘홈즈</h1></div>
         </router-link>
       </b-navbar-brand>
@@ -44,11 +44,16 @@
           <b-nav-item class="align-self-center">
             <router-link :to="{ name: 'mypage' }" class="link align-self-center">MY PAGE</router-link>
           </b-nav-item>
-          <b-nav-item class="align-self-center link" @click.prevent="onClickLogout">LOGOUT</b-nav-item>
+          <b-nav-item class="link align-self-center logout-link" @click.prevent="onClickLogout">LOGOUT</b-nav-item>
         </b-navbar-nav>
         <!-- before login -->
         <b-navbar-nav class="ml-auto" v-else>
-          <b-nav-item-dropdown right>
+          <b-nav-item right class="align-self-center">
+            <router-link :to="{ name: 'login' }" class="link align-self-center login-link">
+              <b-icon icon="key"></b-icon> LOGIN
+            </router-link>
+          </b-nav-item>
+          <!-- <b-nav-item-dropdown right>
             <template #button-content>
               <b-icon icon="people" font-scale="2"></b-icon>
             </template>
@@ -60,7 +65,7 @@
             <b-dropdown-item href="#">
               <router-link :to="{ name: 'login' }" class="link"> <b-icon icon="key"></b-icon> LOGIN </router-link>
             </b-dropdown-item>
-          </b-nav-item-dropdown>
+          </b-nav-item-dropdown> -->
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -111,18 +116,42 @@ export default {
   text-decoration: none;
   /* color: #17a2b8; */
   color: black;
+  height: 40px;
+  margin: 0px;
+  display: inline-block;
+  height: 24px;
+}
+
+.title-link {
+  height: 40px;
+}
+
+.login-link {
+  padding: 0px;
+}
+
+.logout-link {
+  margin-top: -16px;
+}
+
+h1 {
+  height: 40px;
 }
 
 .link:hover {
   text-decoration: none;
-  color: #6e8a8e;
+  color: #17a2b8;
+}
+
+.link.router-link-active,
+.link.router-link-exact-active {
+  margin: 0px;
 }
 
 /* li:hover a, */
 li.router-link-active a,
 li.router-link-exact-active a {
-  color: #17a2b8;
-  cursor: pointer;
+  margin: 0px;
 }
 
 /* li a {
