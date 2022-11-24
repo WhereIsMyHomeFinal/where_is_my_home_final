@@ -1,10 +1,6 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h3>글수정</h3></b-alert>
-      </b-col>
-    </b-row>
+    <h3>게시글 수정</h3>
     <board-input-item type="modify" />
   </b-container>
 </template>
@@ -20,4 +16,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+h3 {
+  text-align: center;
+  margin-left: 0px;
+}
+</style>

@@ -2,7 +2,7 @@
   <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
-        <b-alert show><h3>글작성</h3></b-alert>
+        <h3>게시글 작성</h3>
       </b-col>
     </b-row>
     <board-input-item type="register" />
@@ -20,4 +20,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+h3 {
+  text-align: start;
+  margin-left: 0px;
+}
+</style>
