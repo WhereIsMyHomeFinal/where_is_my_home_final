@@ -1,11 +1,14 @@
 <template>
+
   <b-container class="bv-example-row mt-3">
-    <b-row>
+    <!-- <b-row>
       <b-col>
         <b-alert show><h3>글목록</h3></b-alert>
       </b-col>
-    </b-row>
+    </b-row> -->
+    
     <b-row class="mb-1">
+      <b-col class="text-left"><h3>게시판</h3></b-col>
       <b-col class="text-right">
         <b-button variant="outline-primary" @click="moveWrite()">글쓰기</b-button>
       </b-col>
