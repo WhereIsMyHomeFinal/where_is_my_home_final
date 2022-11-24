@@ -1,17 +1,12 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h3>글보기</h3></b-alert>
-      </b-col>
-    </b-row>
     <b-row class="mb-1">
       <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList">목록</b-button>
+        <b-button class="board-btn" size="sm" variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
       <b-col class="text-right" v-if="userInfo.userid === article.userid">
-        <b-button variant="outline-info" size="sm" @click="moveModifyArticle" class="mr-2">글수정</b-button>
-        <b-button variant="outline-danger" size="sm" @click="deleteArticle">글삭제</b-button>
+        <b-button class="board-btn mr-2" variant="outline-info" size="sm" @click="moveModifyArticle">글수정</b-button>
+        <b-button class="board-btn" variant="outline-danger" size="sm" @click="deleteArticle">글삭제</b-button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -93,4 +88,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.board-btn {
+  margin-bottom: 13px;
+}
+</style>
