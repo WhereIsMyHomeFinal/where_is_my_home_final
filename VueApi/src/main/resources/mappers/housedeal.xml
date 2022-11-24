@@ -34,7 +34,7 @@
 		    as a 
 		left join 
 		    (
-				select aptcode, avg(recommend_score) as avgRecommend, avg(surround_score) as avgSurround, 
+				select aptcode, round(avg(recommend_score) as avgRecommend, avg(surround_score) as avgSurround, 
 					avg(traffic_score) as avgTraffic, avg(living_score) as avgLiving 
 					from review r join housedeal d
 					on r.deal_idx = d.no

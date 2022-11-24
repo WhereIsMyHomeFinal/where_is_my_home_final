@@ -68,11 +68,21 @@
             @mouseover="displayMouseInfo(index)"
             @mouseout="closeMouseInfo()"
           >
-            <div class="col-md-6 text-info">{{ apt.aptName }}</div>
-            <div>
-              <div>{{ apt.dongName }}</div>
-              <br />
-              <div>평균 매매 가격 {{ apt.dealAmount }}</div>
+            <div class="col-md-5" style="background-color: rgba(23, 162, 184, 0.3)">
+              <div class="text-info">{{ apt.aptName }}</div>
+              <div>★ {{ apt[`${selected}`] }}/5</div>
+            </div>
+            <div class="col-md-7">
+              <div>
+                <small
+                  ><strong>{{ apt.dongName }}</strong></small
+                >
+              </div>
+              <div>
+                <small
+                  ><strong>평균 매매 가격 {{ apt.dealAmount }} 만원</strong></small
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -259,33 +269,6 @@
           </b-tab>
         </b-tabs>
       </div>
-      <!-- 매물정보 -->
-      <!-- <div class="bg-white mb-2">
-        <div class="border-bottom"><h5 class="p-3 m-0">매물 정보</h5></div>
-        <div>
-          <table class="w-100">
-            <thead class="bg-secondary text-white">
-              <tr>
-                <td class="ps-3 py-1">타입</td>
-                <td class="w-50">제목</td>
-                <td>거래가격</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody class="px-2">
-              <tr v-if="ongoingList.length==0" class="border-bottom">
-                <td colspan="3" class="ps-3 py-2">등록된 매물이 없습니다.</td>
-              </tr>
-              <tr v-else v-for="(item, index) in ongoingList" :key="index" class="border-bottom">
-                <td class="ps-3 py-2">{{ item.type }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.dealAmount }}</td>
-                <td><HeartBtn :enabled="item.bookmark" :index="index" @changeHeartBtn="onBookmarkOngoing" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -324,12 +307,12 @@ export default {
       sum_traffic: 0.0,
       sum_living: 0.0,
       sum_surround: 0.0,
-      selected: "recommend",
+      selected: "avgRecommend",
       options: [
-        { value: "recommend", text: "추천점수순" },
-        { value: "traffic", text: "교통요건순" },
-        { value: "living", text: "거주환경순" },
-        { value: "surround", text: "주변환경순" },
+        { value: "avgRecommend", text: "추천점수" },
+        { value: "avgTraffic", text: "교통요건" },
+        { value: "avgLiving", text: "거주환경" },
+        { value: "avgSurround", text: "주변환경" },
       ],
       infowindow: {},
     };
@@ -361,7 +344,7 @@ export default {
       this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     },
     addMarkers(aptlist) {
-      this.selected = "recommend";
+      this.selected = "avgRecommend";
       this.curIndex = -1;
       console.log("addmarkers");
       // this.initMap();
@@ -615,14 +598,6 @@ export default {
           .post(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
           .then(() => {
             this.aptlist[this.curIndex].liked = enabled;
-            // console.log(`enabled: ${enabled}, liked: ${this.aptlist[this.curIndex].liked}`);
-            // if (data.result == 'login') {
-            //   this.$swal('세션이 만료되었거나, 로그인되지 않았습니다. 로그인 페이지로 이동합니다.', { icon: 'warning' })
-            //     .then(() => {
-            //       this.SET_USER_LOGOUT();
-            //       this.$router.push('/user/login');
-            //     })
-            // }
           })
           .catch(() => this.$swal("서버에 문제가 발생하였습니다.", { icon: "error" }));
       } else {
@@ -630,14 +605,6 @@ export default {
           .delete(`/like-deals/${this.userInfo.userIdx}/${this.aptlist[this.curIndex].no}`)
           .then(() => {
             this.aptlist[this.curIndex].liked = enabled;
-            // console.log(`enabled: ${enabled}, liked: ${this.aptlist[this.curIndex].liked}`);
-            // if (data.result == 'login') {
-            //   this.$swal('세션이 만료되었거나, 로그인되지 않았습니다. 로그인 페이지로 이동합니다.', { icon: 'warning' })
-            //     .then(() => {
-            //       this.SET_USER_LOGOUT();
-            //       this.$router.push('/user/login');
-            //     })
-            // }
           })
           .catch(() => this.$swal("서버에 문제가 발생하였습니다.", { icon: "error" }));
       }
@@ -666,10 +633,7 @@ export default {
   },
   watch: {
     selected() {
-      if (this.selected === "recommend") this.aptlist = this.aptlist.sort((a, b) => b.avgRecommend - a.avgRecommend);
-      else if (this.selected === "traffic") this.aptlist = this.aptlist.sort((a, b) => b.avgTraffic - a.avgTraffic);
-      else if (this.selected === "living") this.aptlist = this.aptlist.sort((a, b) => b.avgLiving - a.avgLiving);
-      else if (this.selected === "surround") this.aptlist = this.aptlist.sort((a, b) => b.avgSurround - a.avgSurround);
+      this.aptlist = this.aptlist.sort((a, b) => b[`${this.selected}`] - a[`${this.selected}`]);
     },
   },
 };
