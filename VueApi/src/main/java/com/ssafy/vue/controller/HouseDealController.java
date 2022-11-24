@@ -26,42 +26,11 @@ public class HouseDealController {
 	
 	@GetMapping	// 둘 다 선택 안하면 그냥 전체 데이터에서 dealAmount가 큰 순으로 9개 가져옴 -> 사용자에게 유도하도록 추후 수정?
 	private ResponseEntity<List<HouseDealDto>> getHouseDeals(@RequestParam(required = false) String aptName, 
-			@RequestParam(required = false) String dongName, @RequestParam String selected) {
+			@RequestParam(required = false) String dongName) {
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		if(aptName != null) conditions.put("aptName", aptName);
 		if(dongName != null) conditions.put("dongName", dongName);
 		List<HouseDealDto> houseDeals = houseService.getHouseDeals(conditions);
-		
-		houseService.getScores(houseDeals);
-		if (selected == "traffic")
-			houseDeals.sort(new Comparator<HouseDealDto>() {
-			@Override
-			public int compare(HouseDealDto o1, HouseDealDto o2) {
-				return Float.compare(o2.getAvgTraffic(), o1.getAvgTraffic());
-			}
-		});
-		else if (selected == "living")
-			houseDeals.sort(new Comparator<HouseDealDto>() {
-			@Override
-			public int compare(HouseDealDto o1, HouseDealDto o2) {
-				return Float.compare(o2.getAvgLiving(), o1.getAvgLiving());
-			}
-		});
-		else if (selected == "surround")
-			houseDeals.sort(new Comparator<HouseDealDto>() {
-			@Override
-			public int compare(HouseDealDto o1, HouseDealDto o2) {
-				return Float.compare(o2.getAvgSurround(), o1.getAvgSurround());
-			}
-		});
-		else // (selected == "recommend")
-			houseDeals.sort(new Comparator<HouseDealDto>() {
-				@Override
-				public int compare(HouseDealDto o1, HouseDealDto o2) {
-					return Float.compare(o2.getAvgRecommend(), o1.getAvgRecommend());
-				}
-			});
-		
 		if(houseDeals.size() == 0) {
 			return ResponseEntity.noContent().build();
 		} else {

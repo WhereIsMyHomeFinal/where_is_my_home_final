@@ -151,9 +151,9 @@ public class HouseDealDto {
 
 	@Override
 	public String toString() {
-		return "House [no=" + no + ", aptName=" + aptName + ", dealAmount=" + dealAmount + ", area=" + area
-				+ ", dongName=" + dongName + ", floor=" + floor + ", buildYear=" + buildYear + ", lat=" + lat + ", lng="
-				+ lng + ", aptCode=" + aptCode + "]";
+		return "HouseDealDto [no=" + no + ", aptCode=" + aptCode + ", aptName=" + aptName + ", dealAmount=" + dealAmount
+				+ ", area=" + area + ", dongName=" + dongName + ", floor=" + floor + ", buildYear=" + buildYear
+				+ ", lat=" + lat + ", lng=" + lng + ", isLiked=" + isLiked + ", avgRecommend=" + avgRecommend
+				+ ", avgTraffic=" + avgTraffic + ", avgLiving=" + avgLiving + ", avgSurround=" + avgSurround + "]";
 	}
-	
 }

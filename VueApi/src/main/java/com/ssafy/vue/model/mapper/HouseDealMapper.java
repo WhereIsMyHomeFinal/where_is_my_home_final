@@ -21,6 +21,5 @@ public interface HouseDealMapper {
 	List<SidoGugunCodeDto> getGugunInSido(String sido);
 	
 	List<HouseDealDto> getDongInGugun(String gugun);
-	
-	List<HouseDealDto> getScores(List<HouseDealDto> houseDeals);
+
 }
