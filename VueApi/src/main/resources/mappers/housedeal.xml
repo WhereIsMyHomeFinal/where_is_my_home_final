@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.vue.model.mapper.HouseDealMapper">
-
-	<select id="getScores" resultType="HouseDealDto" parameterType="HouseDealDto">
-		select avg(recommend_score) as avgRecommend, avg(surround_score) as avgSurround, 
-			avg(traffic_score) as avgTraffic, avg(living_score) as avgLiving 
-		from review r join housedeal d
-		on r.deal_idx = d.no
-		where aptCode = #{aptCode};
-	</select>
 	
 	<!-- 주택매매정보 조회 -->
 	<select id="selectHouseDeal" resultType="HouseDealDto" parameterType="map">
@@ -22,16 +14,34 @@
 	
 	<!-- 주택매매정보목록 조회 -->
 	<select id="selectHouseDeals" resultType="HouseDealDto" parameterType="HouseDealDto">
-		select * from (select *, row_number() over (partition by aptCode) as rn
-		from (select * from housedeal d right join houseinfo i
-			using (aptCode)) as t
-		) as a 
-		<where>
-			a.rn &lt;= 1 
-			<if test="aptName != '' and aptName != null">and aptName like concat('%', #{aptName}, '%')</if>
-			<if test="dongName != '' and dongName != null">and dongName like #{dongName}</if>	<!-- 첫번째 if가 실행 안되면 and 자동으로 날려줌!! -->
-		</where>
-		order by dealAmount desc <!--  limit 9 -->
+		select *
+		from
+			(
+				select ad.*, hd.floor,hd.area
+				from
+				(
+					select i.aptcode, i.aptname, i.buildyear, d.no, max(d.dealAmount) as dealAmount, 
+						i.lat, i.lng, i.dongName 
+					from houseinfo i
+					left join housedeal d  on(i.aptcode = d.aptcode)
+					<where>
+						<if test="aptName != '' and aptName != null">aptName like concat('%', #{aptName}, '%')</if>
+        				<if test="dongName != '' and dongName != null">dongName like #{dongName}</if>
+					</where>
+					group by i.aptcode
+				) ad, housedeal hd
+				where ad.no = hd.no
+		    )
+		    as a 
+		left join 
+		    (
+				select aptcode, avg(recommend_score) as avgRecommend, avg(surround_score) as avgSurround, 
+					avg(traffic_score) as avgTraffic, avg(living_score) as avgLiving 
+					from review r join housedeal d
+					on r.deal_idx = d.no
+					group by aptCode
+			) as r on (a.aptcode = r.aptcode)
+		order by avgRecommend desc;
 	</select>
 	
 	<!-- 레코드 하나를 해당 타입에 어떻게 매핑시켜 담아야하는지의 매핑전략 -->

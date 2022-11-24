@@ -42,10 +42,10 @@
     <div id="searchBox" class="card">
       <b-tabs content-class="mt-3">
         <b-tab title="동 검색" active>
-          <dong-search :selected="selected" @searched-houses="addMarkers" />
+          <dong-search :selected="selected" @searched-houses="displayList" />
         </b-tab>
         <b-tab title="키워드 검색">
-          <keyword-search :selected="selected" @searched-houses="addMarkers" />
+          <keyword-search :selected="selected" @searched-houses="displayList" />
         </b-tab>
       </b-tabs>
     </div>
@@ -325,6 +325,10 @@ export default {
     };
   },
   methods: {
+    displayList(data) {
+      this.initMap();
+      this.addMarkers(data);
+    },
     initMap() {
       console.log("initmap");
       this.placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
@@ -347,6 +351,7 @@ export default {
       this.infowindow = new kakao.maps.InfoWindow({zIndex:1});
     },
     addMarkers(aptlist) {
+      this.selected = 'recommend';
       this.curIndex = -1;
       console.log("addmarkers");
       // this.initMap();
@@ -641,18 +646,34 @@ export default {
       document.head.appendChild(script);
     }
   },
+  watch: {
+    selected() {
+      if (this.selected === "recommend")
+        this.aptlist = this.aptlist.sort((a, b) => 
+          b.avgRecommend - a.avgRecommend);
+      else if (this.selected === "traffic")
+        this.aptlist = this.aptlist.sort((a, b) => 
+          b.avgTraffic - a.avgTraffic);
+      else if (this.selected === "living")
+        this.aptlist = this.aptlist.sort((a, b) => 
+          b.avgLiving - a.avgLiving);
+      else if (this.selected === "surround")
+        this.aptlist = this.aptlist.sort((a, b) => 
+          b.avgSurround - a.avgSurround);
+    }
+  },
 };
 </script>
 <style scoped>
 #map {
   width: 100%;
-  height: 91vh;
+  height: 93vh;
 }
 #radiobox {
   position: absolute;
   top: 285px;
   left: 10px;
-  width: 495px;
+  width: 400px;
   font-size: 20px;
   border-radius: 10px;
   /* line-height: 2rem; */
@@ -678,7 +699,7 @@ export default {
 #showList {
   position: absolute;
   top: 340px;
-  bottom: 10px;
+  bottom: 20px;
   left: 10px;
   /* right: 1505px; */
   width: 400px;
